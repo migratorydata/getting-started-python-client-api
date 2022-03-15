@@ -1,34 +1,34 @@
 import abc
-class lYT(metaclass=abc.ABCMeta):
+class PyJ(metaclass=abc.ABCMeta):
     @abc.abstractmethod
-    def EWQ(self, host):
+    def GqZ(self, host):
         pass
     @abc.abstractmethod
-    def WTN(self, MXh):
+    def Skw(self, jiT):
         pass
     @abc.abstractmethod
-    def AZx(self, host, encrypted):
+    def HLn(self, host, encrypted):
         pass
 import threading
-class UsT:
+class Fwq:
     def __init__(self, value):
         self._lock = threading.Lock()
         self._value = value
-    def NuT(self, value):
+    def URV(self, value):
         with self._lock:
             self._value = value
-    def UHJ(self):
+    def lBf(self):
         with self._lock:
             return self._value
     def __repr__(self) -> str:
         return str(self._value)
-class rWc:
+class mJo:
     def __init__(self, _start, _end):
         self._start = _start
         self._end = _end
-    def MSp(self):
+    def pIu(self):
         return self._start
-    def xIf(self):
+    def ufj(self):
         return self._end
 import abc
 class MigratoryDataListener(metaclass=abc.ABCMeta):
@@ -65,7 +65,7 @@ class MigratoryDataMessage:
         self._content = _content
         self._closure = closure
         self._reply_to_subject = reply_subject
-        self.HQg = qos
+        self.VXt = qos
         self._retained = retained
         self._message_type = MessageType.UPDATE
         self._seq = None
@@ -86,7 +86,7 @@ class MigratoryDataMessage:
     def get_epoch(self):
         return self._epoch
     def get_qos(self):
-        return self.HQg
+        return self.VXt
     def get_message_type(self):
         return self._message_type
     def set_compressed(self, compression_bool):
@@ -94,24 +94,24 @@ class MigratoryDataMessage:
     def is_compressed(self):
         return self._compression
     def __repr__(self) -> str:
-        bIs = "["
-        bIs += "Subj = " + str(self._subject) + ", "
-        bIs += "Content =  " + str(self._content.decode("utf-8")) + ", "
-        bIs += "Closure =  " + str(self._closure) + ", "
-        bIs += "ReplyToSubject =  " + str(self._reply_to_subject) + ", "
-        bIs += "Retained = " + str(self._retained) + ", "
-        bIs += "QOS = " + self.yNq() + ", "
-        bIs += "MessageType = " + self.MUC() + ", "
-        bIs += "Seq = " + str(self._seq) + ", "
-        bIs += "Epoch = " + str(self._epoch) + " "
-        bIs += "Compression = " + str(self._compression) + " "
-        bIs += "]"
-        return bIs
-    def yNq(self):
-        if self.HQg == QoS.STANDARD:
+        iFd = "["
+        iFd += "Subj = " + str(self._subject) + ", "
+        iFd += "Content =  " + str(self._content.decode("utf-8")) + ", "
+        iFd += "Closure =  " + str(self._closure) + ", "
+        iFd += "ReplyToSubject =  " + str(self._reply_to_subject) + ", "
+        iFd += "Retained = " + str(self._retained) + ", "
+        iFd += "QOS = " + self.vtq() + ", "
+        iFd += "MessageType = " + self.mEJ() + ", "
+        iFd += "Seq = " + str(self._seq) + ", "
+        iFd += "Epoch = " + str(self._epoch) + " "
+        iFd += "Compression = " + str(self._compression) + " "
+        iFd += "]"
+        return iFd
+    def vtq(self):
+        if self.VXt == QoS.STANDARD:
             return "STANDARD"
         return "GUARANTEED"
-    def MUC(self):
+    def mEJ(self):
         if self._message_type == MessageType.SNAPSHOT:
             return "SNAPSHOT"
         if self._message_type == MessageType.UPDATE:
@@ -119,62 +119,62 @@ class MigratoryDataMessage:
         if self._message_type == MessageType.RECOVERED:
             return "RECOVERED"
         return "HISTORICAL"
-class qQA:
+class obv:
     def __init__(self):
-        self.mcf = bytearray()
-        self.VON = 0
+        self.YoI = bytearray()
+        self.Kif = 0
         self.content_length_mark = -1
         self.payload_mark = -1
         self.body_start_mark = -1
         self.body_end_mark = -1
-    def GAH(self, VON):
-        self.VON = VON
-    def extend(self, ALH):
-        self.mcf.extend(ALH)
-    def append(self, ALH):
-        self.mcf.append(ALH)
-    def Fdz(self):
-        self.mcf = self.mcf[self.VON:]
-        self.VON = 0
+    def yTC(self, Kif):
+        self.Kif = Kif
+    def extend(self, glt):
+        self.YoI.extend(glt)
+    def append(self, glt):
+        self.YoI.append(glt)
+    def vVU(self):
+        self.YoI = self.YoI[self.Kif:]
+        self.Kif = 0
     def clear(self):
-        self.mcf = bytearray()
-        self.VON = 0
-    def INS(self):
-        if self.VON == 0:
-            return self.mcf
+        self.YoI = bytearray()
+        self.Kif = 0
+    def jWm(self):
+        if self.Kif == 0:
+            return self.YoI
         else:
-            return self.mcf[self.VON:]
+            return self.YoI[self.Kif:]
 import threading
 import socket
-class ZrB(threading.Thread):
+class KRy(threading.Thread):
     def __init__(self, _socket, connection, uuid):
         threading.Thread.__init__(self)
         self._socket = _socket
         self._connection = connection
-        self._buf = qQA()
+        self._buf = obv()
         self._uuid = uuid
         self._run = True
     def run(self):
         while self._run:
             try:
-                ORI = self._socket.recv(32768)
-                if len(ORI) == 0:
+                TYl = self._socket.recv(32768)
+                if len(TYl) == 0:
                     break
-                self._buf.extend(ORI)
-                self._connection.Tpi(self._buf)
-                if self._buf.VON > 0 and self._buf.VON < len(self._buf.mcf):
-                    self._buf.Fdz()
-                elif self._buf.VON >= len(self._buf.mcf):
+                self._buf.extend(TYl)
+                self._connection.RyP(self._buf)
+                if self._buf.Kif > 0 and self._buf.Kif < len(self._buf.YoI):
+                    self._buf.vVU()
+                elif self._buf.Kif >= len(self._buf.YoI):
                     self._buf.clear()
-            except (OSError, socket.error) as ifQ:
+            except (OSError, socket.error) as fpI:
                 pass
-        self._connection.ArA(self._uuid, gHQ.XHM, "read_thread")
-    def oBS(self):
+        self._connection.nCJ(self._uuid, XRm.zPk, "read_thread")
+    def SUb(self):
         self._run = False
 import queue
 import threading
 import socket
-class XBk(threading.Thread):
+class qlT(threading.Thread):
     def __init__(self, _socket):
         threading.Thread.__init__(self)
         self._socket = _socket
@@ -187,23 +187,23 @@ class XBk(threading.Thread):
                 message = self._message_queue.get(True, 0.1)
                 if message is not None:
                     self._socket.send(bytes(message))
-            except (queue.Empty or socket.error) as ifQ:
+            except (queue.Empty or socket.error) as fpI:
                 pass
-    def RUH(self, message):
+    def qbU(self, message):
         self._message_queue.put(message)
-    def oBS(self):
+    def SUb(self):
         self._run = False
 import logging
-class hKu(MigratoryDataLogListener):
+class Ufp(MigratoryDataLogListener):
     def __init__(self):
         self.log1 = logging.getLogger("CLIENT")
         self.log1.setLevel(logging.INFO)
-        qGy = logging.StreamHandler()
-        qGy.setLevel(logging.INFO)
-        xkY = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-        qGy.setFormatter(xkY)
+        nOo = logging.StreamHandler()
+        nOo.setLevel(logging.INFO)
+        Uxy = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        nOo.setFormatter(Uxy)
         del self.log1.handlers[:]
-        self.log1.addHandler(qGy)
+        self.log1.addHandler(nOo)
     def on_log(self, log, migratory_data_log_level):
         if migratory_data_log_level == MigratoryDataLogLevel.TRACE:
             self.log1.debug(log)
@@ -216,7 +216,7 @@ class hKu(MigratoryDataLogListener):
         elif migratory_data_log_level == MigratoryDataLogLevel.ERROR:
             self.log1.error(log)
 import abc
-class ySB(metaclass=abc.ABCMeta):
+class NEq(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def trace(self, message):
         pass
@@ -233,12 +233,12 @@ class ySB(metaclass=abc.ABCMeta):
     def error(self, message):
         pass
 import threading
-class osA(ySB):
+class AcC(NEq):
     def __init__(self):
         self._lock = threading.Lock()
-        self._log_listener = hKu()
+        self._log_listener = Ufp()
         self._log_level = MigratoryDataLogLevel.INFO
-    def wsC(self, log_listener, log_level):
+    def yFI(self, log_listener, log_level):
         with self._lock:
             self._log_listener = log_listener
             self._log_level = log_level
@@ -257,128 +257,128 @@ class osA(ySB):
     def info(self, message):
         if self._log_level <= MigratoryDataLogLevel.INFO:
             self._log_listener.on_log(message, MigratoryDataLogLevel.INFO)
-class fqD:
-    yRC = "[READ_EVENT]"
-    tPH = "[PING_EVENT]"
-    iMT = "[CONNECT_EVENT]"
-    raC = "[DISCONNECT_EVENT]"
-    SCB = "[READER_DISCONNECT_EVENT]"
-    SgG = "[MESSAGE_RECEIVED_EVENT]"
-    lLA = "[WRITE_EVENT]"
-    tRt = "[CLIENT_PUBLISH_RESPONSE]"
-    Vpe = "[Vpe]"
-    KtW = "[ENTITLEMENT_CHECK_RESPONSE]"
-    hZv = "[DISPOSE_EVENT]"
-    wso = "[PAUSE_EVENT]"
-    aTg = "[RESUME_EVENT]"
-    dsq = "[SUBSCRIBE_EVENT]"
-    fXo = "[UNSUBSCRIBE_EVENT]"
-    jid = "[PUBLISH_EVENT]"
-    egj = "[REPUBLISH_EVENT"
-    IkC = "[PING_SERVER_EVENT]"
-    ZLJ = "[CONNECT_SERVER_EVENT]"
-    sBE = "[RECONNECT_EVENT]"
-class fdd:
-    mzp = 0
-    lwB = 1
-    jgb = 2
-class TOP:
-    eWz = "cache_ok"
-    gDG = 2
-    def __init__(self, guq, history):
-        self._subject = guq
+class wPc:
+    AvA = "[READ_EVENT]"
+    zeZ = "[PING_EVENT]"
+    hSv = "[CONNECT_EVENT]"
+    QoC = "[DISCONNECT_EVENT]"
+    sOi = "[READER_DISCONNECT_EVENT]"
+    qlo = "[MESSAGE_RECEIVED_EVENT]"
+    Uiv = "[WRITE_EVENT]"
+    rla = "[CLIENT_PUBLISH_RESPONSE]"
+    YlF = "[YlF]"
+    Cqx = "[ENTITLEMENT_CHECK_RESPONSE]"
+    GQQ = "[DISPOSE_EVENT]"
+    TwE = "[PAUSE_EVENT]"
+    LmE = "[RESUME_EVENT]"
+    eSc = "[SUBSCRIBE_EVENT]"
+    Mhi = "[UNSUBSCRIBE_EVENT]"
+    oYn = "[PUBLISH_EVENT]"
+    LiH = "[REPUBLISH_EVENT"
+    XoV = "[PING_SERVER_EVENT]"
+    lAM = "[CONNECT_SERVER_EVENT]"
+    bdU = "[RECONNECT_EVENT]"
+class bqk:
+    AgB = 0
+    njB = 1
+    APR = 2
+class Oqm:
+    iTW = "cache_ok"
+    vuS = 2
+    def __init__(self, qxh, history):
+        self._subject = qxh
         self._history = history
         self._seq = 0
         self._seq_id = 70000
         self._need_recovery = False
         self._nr_of_consecutive_recoveries = 0
         self._messages_recieved_until_recovery = 0
-        self._cache_recovery_status = TOP.eWz
-        self._current_subscribe_type = fdd.mzp
+        self._cache_recovery_status = Oqm.iTW
+        self._current_subscribe_type = bqk.AgB
     def get_seq(self):
         return self._seq
-    def Wmn(self, AMA):
-        self._seq = AMA
+    def ZFD(self, CvH):
+        self._seq = CvH
         self._messages_recieved_until_recovery += 1
-    def jrJ(self):
+    def uzS(self):
         return self._seq_id
-    def jBO(self, lbh):
-        self._seq_id = lbh
+    def bUC(self, wRp):
+        self._seq_id = wRp
     def get_subject(self):
         return self._subject
-    def FZC(self):
+    def XCr(self):
         return self._history
-    def iwQ(self):
+    def QfX(self):
         self._messages_recieved_until_recovery = 0
-        if self.Urh():
+        if self.UCt():
             self._nr_of_consecutive_recoveries += 1
-    def GgL(self):
+    def vjU(self):
         self._nr_of_consecutive_recoveries = 0
-    def IbH(self):
+    def lEx(self):
         return self._messages_recieved_until_recovery
-    def zIF(self, status):
+    def kzZ(self, status):
         self._cache_recovery_status = status
-    def SvO(self):
+    def GUr(self):
         return self._cache_recovery_status
-    def Urh(self):
+    def UCt(self):
         return self._seq_id != 70000
-    def HNj(self):
-        type = fdd.mzp
-        if self.Urh():
-            if self._nr_of_consecutive_recoveries >= TOP.gDG:
+    def UMk(self):
+        type = bqk.AgB
+        if self.UCt():
+            if self._nr_of_consecutive_recoveries >= Oqm.vuS:
                 if self._history > 0:
-                    type = fdd.lwB
+                    type = bqk.njB
             else:
-                type = fdd.jgb
+                type = bqk.APR
         else:
             if self._history > 0:
-                type = fdd.lwB
-        if type == fdd.mzp or type == fdd.lwB:
-            self.zIF(TOP.eWz)
-            self.GgL()
+                type = bqk.njB
+        if type == bqk.AgB or type == bqk.njB:
+            self.kzZ(Oqm.iTW)
+            self.vjU()
         self._current_subscribe_type = type
         return type
-    def ucU(self):
+    def clF(self):
         return self._current_subscribe_type
-    def emd(self):
-        self._current_subscribe_type = fdd.mzp
-    def wan(self):
+    def OYJ(self):
+        self._current_subscribe_type = bqk.AgB
+    def max(self):
         self._seq = 0
         self._seq_id = 70000
         self._need_recovery = False
         self._nr_of_consecutive_recoveries = 0
         self._messages_recieved_until_recovery = 0
-        self._cache_recovery_status = self.eWz
-        self._current_subscribe_type = fdd.mzp
+        self._cache_recovery_status = self.iTW
+        self._current_subscribe_type = bqk.AgB
     def __repr__(self) -> str:
-        bIs = "["
-        bIs += "Subj = " + str(self._subject) + ", "
-        bIs += "Seq = " + str(self._seq) + ", "
-        bIs += "SeqId = " + str(self._seq_id) + ", "
-        bIs += "NeedRecovery = " + str(self._need_recovery) + ", "
-        bIs += "MessagesReceivedUntilRecovery = " + str(self._messages_recieved_until_recovery) + ", "
-        bIs += "CacheRecoveryStatus = " + str(self._cache_recovery_status) + ", "
-        bIs += "SubsType = " + str(self._current_subscribe_type) + ", "
-        bIs += "NrOfConsecutiveRecovery = " + str(self._nr_of_consecutive_recoveries)
-        bIs += "]"
-        return bIs
-class joo:
-    def __init__(self, operation, gNU):
+        iFd = "["
+        iFd += "Subj = " + str(self._subject) + ", "
+        iFd += "Seq = " + str(self._seq) + ", "
+        iFd += "SeqId = " + str(self._seq_id) + ", "
+        iFd += "NeedRecovery = " + str(self._need_recovery) + ", "
+        iFd += "MessagesReceivedUntilRecovery = " + str(self._messages_recieved_until_recovery) + ", "
+        iFd += "CacheRecoveryStatus = " + str(self._cache_recovery_status) + ", "
+        iFd += "SubsType = " + str(self._current_subscribe_type) + ", "
+        iFd += "NrOfConsecutiveRecovery = " + str(self._nr_of_consecutive_recoveries)
+        iFd += "]"
+        return iFd
+class GAP:
+    def __init__(self, operation, VFw):
         self.operation = operation
-        self.gNU = gNU
+        self.VFw = VFw
     def __repr__(self) -> str:
-        bIs = "OPERATION " + str(self.YQT(int(self.operation))) + " - "
-        bIs += "Headers "
-        for WLq in self.gNU:
-            zIW = str(self.VmQ(int(WLq)))
+        iFd = "OPERATION " + str(self.NwY(int(self.operation))) + " - "
+        iFd += "Headers "
+        for NQe in self.VFw:
+            Emf = str(self.hVu(int(NQe)))
             value = None
-            if zIW == "MESSAGE_TYPE" and isinstance(zIW, int):
-                value = self.fyj(int(self.gNU.get(WLq)))
+            if Emf == "MESSAGE_TYPE" and isinstance(Emf, int):
+                value = self.LNL(int(self.VFw.get(NQe)))
             else:
-                value = str(self.gNU.get(WLq))
-            bIs += zIW + ": " + value + " - "
-        return bIs
-    def YQT(self, number):
+                value = str(self.VFw.get(NQe))
+            iFd += Emf + ": " + value + " - "
+        return iFd
+    def NwY(self, number):
         if number == 0:
             return "SUBSCRIBE"
         elif number == 1:
@@ -419,7 +419,7 @@ class joo:
             return "PUBLISH_ACK"
         elif number == 19:
             return "CONNECT"
-    def VmQ(self, number):
+    def hVu(self, number):
         if number == 0:
             return "SUBJECT"
         elif number == 1:
@@ -486,1396 +486,1396 @@ class joo:
             return "PUBLISH_SAMPLE_TIMESTAMP"
         elif number == 32:
             return "CLUSTER_TOKEN"
-    def fyj(self, number):
+    def LNL(self, number):
         if number == 1:
             return "SNAPSHOT"
         elif number == 2:
             return "UPDATE"
         elif number == 3:
             return "RECOVERY"
-class RKL:
-    NbO = 0
-    Sdl = 1
-    jax = 2
+class bqs:
+    vct = 0
+    tGP = 1
+    uii = 2
 import struct
-class ETB:
-    YuP = []
-    FRG = []
-    qUm = []
-    UNE = []
-    qvi = 0x19
-    EEH = 0x7F
-    tWC = 0x1E
-    Lke = 0x1F
-    kLV = []
-    gNU = []
-    eKo = []
+class vxU:
+    DTD = []
+    KcZ = []
+    PPf = []
+    eeB = []
+    Hnb = 0x19
+    pHs = 0x7F
+    fTy = 0x1E
+    YiE = 0x1F
+    FrW = []
+    VFw = []
+    rSa = []
     @staticmethod
-    def xlW():
-        for DKW in range(0, 128):
-            ETB.YuP.append(-1)
-        ETB.YuP[sJO.KLK] = 0x01
-        ETB.YuP[sJO.vKi] = 0x02
-        ETB.YuP[sJO.dQH] = 0x03
-        ETB.YuP[sJO.TYb] = 0x04
-        ETB.YuP[sJO.blF] = 0x05
-        ETB.YuP[sJO.klX] = 0x06
-        ETB.YuP[sJO.IzP] = 0x08
-        ETB.YuP[sJO.cRR] = 0x09
-        ETB.YuP[sJO.KDO] = 0x0C
-        ETB.YuP[sJO.fqS] = 0x10
-        ETB.YuP[sJO.CLIENT_PUBLISH_RESPONSE] = 0x13
-        ETB.YuP[sJO.ojR] = 0x1A
-        for DKW in range(0, 128):
-            ETB.kLV.append(-1)
-        for JlT in range(0, sJO.ojR + 1):
-            ETB.kLV[ETB.waX(JlT)] = JlT
-        for DKW in range(0, 128):
-            ETB.FRG.append(-1)
-        ETB.FRG[aZG.SZC] = 0x01
-        ETB.FRG[aZG.Zwl] = 0x02
-        ETB.FRG[aZG.EME] = 0x03
-        ETB.FRG[aZG.BLq] = 0x04
-        ETB.FRG[aZG.Xvv] = 0x05
-        ETB.FRG[aZG.AAX] = 0x06
-        ETB.FRG[aZG.JqS] = 0x07
-        ETB.FRG[aZG.frl] = 0x08
-        ETB.FRG[aZG.Yof] = 0x09
-        ETB.FRG[aZG.ERROR] = 0x0B
-        ETB.FRG[aZG.RvJ] = 0x0C
-        ETB.FRG[aZG.hPV] = 0x0F
-        ETB.FRG[aZG.PNz] = 0x10
-        ETB.FRG[aZG.VPu] = 0x11
-        ETB.FRG[aZG.TXN] = 0x12
-        ETB.FRG[aZG.vsJ] = 0x13
-        ETB.FRG[aZG.rqV] = 0x14
-        ETB.FRG[aZG.JeD] = 0x15
-        ETB.FRG[aZG.SQj] = 0x16
-        ETB.FRG[aZG.TJE] = 0x17
-        ETB.FRG[aZG.zGr] = 0x18
-        ETB.FRG[aZG.jLU] = 0x1A
-        ETB.FRG[aZG.Qeq] = 0x20
-        ETB.FRG[aZG.opV] = 0x27
-        ETB.FRG[aZG.ODC] = 0x28
-        ETB.FRG[aZG.Fxg] = 0x23
-        ETB.FRG[aZG.lSg] = 0x24
-        ETB.FRG[aZG.dbx] = 0x25
-        ETB.FRG[aZG.CjW] = 0x2C
-        ETB.FRG[aZG.lfM] = 0x2D
-        ETB.FRG[aZG.AlZ] = 0x2E
-        ETB.FRG[aZG.sZU] = 0x2F
-        ETB.FRG[aZG.Iov] = 0x30
-        ETB.FRG[aZG.Oaa] = 0x1D
-        ETB.FRG[aZG.gHn] = 0x26
-        for DKW in range(0, 128):
-            ETB.gNU.append(-1)
-        for JlT in range(0, aZG.gHn + 1):
-            ETB.gNU[ETB.Rgs(JlT)] = JlT
-        for DKW in range(0, 128):
-            ETB.eKo.append(-1)
-        ETB.heU(aZG.SZC, For.BTj)
-        ETB.heU(aZG.Zwl, For.Cph)
-        ETB.heU(aZG.EME, For.wiZ)
-        ETB.heU(aZG.BLq, For.wiZ)
-        ETB.heU(aZG.Xvv, For.wiZ)
-        ETB.heU(aZG.AAX, For.wiZ)
-        ETB.heU(aZG.JqS, For.Cph)
-        ETB.heU(aZG.frl, For.Cph)
-        ETB.heU(aZG.Yof, For.Cph)
-        ETB.heU(aZG.ERROR, For.wiZ)
-        ETB.heU(aZG.RvJ, For.Cph)
-        ETB.heU(aZG.hPV, For.wiZ)
-        ETB.heU(aZG.TXN, For.BTj)
-        ETB.heU(aZG.vsJ, For.BTj)
-        ETB.heU(aZG.rqV, For.BTj)
-        ETB.heU(aZG.JeD, For.wiZ)
-        ETB.heU(aZG.SQj, For.wiZ)
-        ETB.heU(aZG.TJE, For.wiZ)
-        ETB.heU(aZG.zGr, For.wiZ)
-        ETB.heU(aZG.jLU, For.BTj)
-        ETB.heU(aZG.Qeq, For.BTj)
-        ETB.heU(aZG.opV, For.BTj)
-        ETB.heU(aZG.Fxg, For.BTj)
-        ETB.heU(aZG.lSg, For.wiZ)
-        ETB.heU(aZG.dbx, For.wiZ)
-        ETB.heU(aZG.PNz, For.BTj)
-        ETB.heU(aZG.VPu, For.wiZ)
-        ETB.heU(aZG.ODC, For.wiZ)
-        ETB.heU(aZG.CjW, For.BTj)
-        ETB.heU(aZG.lfM, For.wiZ)
-        ETB.heU(aZG.AlZ, For.wiZ)
-        ETB.heU(aZG.sZU, For.wiZ)
-        ETB.heU(aZG.Iov, For.BTj)
-        ETB.heU(aZG.Oaa, For.wiZ)
-        ETB.heU(aZG.gHn, For.wiZ)
-        for DKW in range(0, 255):
-            ETB.UNE.append(-1)
-        ETB.UNE[ETB.EEH] = 0x01;
-        ETB.UNE[ETB.tWC] = 0x02;
-        ETB.UNE[ETB.Lke] = 0x03;
-        ETB.UNE[JHs.PuT] = 0x04;
-        ETB.UNE[JHs.pie] = 0x05;
-        ETB.UNE[JHs.tIc] = 0x06;
-        ETB.UNE[JHs.xGa] = 0x07;
-        ETB.UNE[JHs.HVu] = 0x08;
-        ETB.UNE[33] = 0x09;
-        ETB.UNE[ETB.qvi] = 0x0B;
-        for DKW in range(0, 255):
-            ETB.qUm.append(-1)
-        for JlT in range(0, 128):
-            ifQ = ETB.CeD(JlT)
-            if ifQ != -1:
-                ETB.qUm[ifQ] = JlT
+    def PLD():
+        for Pdu in range(0, 128):
+            vxU.DTD.append(-1)
+        vxU.DTD[oWA.zmZ] = 0x01
+        vxU.DTD[oWA.fEB] = 0x02
+        vxU.DTD[oWA.rUO] = 0x03
+        vxU.DTD[oWA.HWc] = 0x04
+        vxU.DTD[oWA.unY] = 0x05
+        vxU.DTD[oWA.xHp] = 0x06
+        vxU.DTD[oWA.dCD] = 0x08
+        vxU.DTD[oWA.wiS] = 0x09
+        vxU.DTD[oWA.Jue] = 0x0C
+        vxU.DTD[oWA.Wqi] = 0x10
+        vxU.DTD[oWA.CLIENT_PUBLISH_RESPONSE] = 0x13
+        vxU.DTD[oWA.LOZ] = 0x1A
+        for Pdu in range(0, 128):
+            vxU.FrW.append(-1)
+        for kEj in range(0, oWA.LOZ + 1):
+            vxU.FrW[vxU.Weh(kEj)] = kEj
+        for Pdu in range(0, 128):
+            vxU.KcZ.append(-1)
+        vxU.KcZ[PsT.SSa] = 0x01
+        vxU.KcZ[PsT.dBF] = 0x02
+        vxU.KcZ[PsT.qPC] = 0x03
+        vxU.KcZ[PsT.HkI] = 0x04
+        vxU.KcZ[PsT.MHX] = 0x05
+        vxU.KcZ[PsT.bCA] = 0x06
+        vxU.KcZ[PsT.DFN] = 0x07
+        vxU.KcZ[PsT.MeO] = 0x08
+        vxU.KcZ[PsT.Ruy] = 0x09
+        vxU.KcZ[PsT.ERROR] = 0x0B
+        vxU.KcZ[PsT.PKE] = 0x0C
+        vxU.KcZ[PsT.jpR] = 0x0F
+        vxU.KcZ[PsT.MDF] = 0x10
+        vxU.KcZ[PsT.GVE] = 0x11
+        vxU.KcZ[PsT.BBG] = 0x12
+        vxU.KcZ[PsT.ebk] = 0x13
+        vxU.KcZ[PsT.KAY] = 0x14
+        vxU.KcZ[PsT.BMv] = 0x15
+        vxU.KcZ[PsT.DKg] = 0x16
+        vxU.KcZ[PsT.Mvk] = 0x17
+        vxU.KcZ[PsT.Xxs] = 0x18
+        vxU.KcZ[PsT.TMs] = 0x1A
+        vxU.KcZ[PsT.gFz] = 0x20
+        vxU.KcZ[PsT.uWt] = 0x27
+        vxU.KcZ[PsT.yHj] = 0x28
+        vxU.KcZ[PsT.gMY] = 0x23
+        vxU.KcZ[PsT.MgJ] = 0x24
+        vxU.KcZ[PsT.lEV] = 0x25
+        vxU.KcZ[PsT.rDh] = 0x2C
+        vxU.KcZ[PsT.bwH] = 0x2D
+        vxU.KcZ[PsT.xsU] = 0x2E
+        vxU.KcZ[PsT.cIA] = 0x2F
+        vxU.KcZ[PsT.MWI] = 0x30
+        vxU.KcZ[PsT.Wqe] = 0x1D
+        vxU.KcZ[PsT.oxp] = 0x26
+        for Pdu in range(0, 128):
+            vxU.VFw.append(-1)
+        for kEj in range(0, PsT.oxp + 1):
+            vxU.VFw[vxU.Vxd(kEj)] = kEj
+        for Pdu in range(0, 128):
+            vxU.rSa.append(-1)
+        vxU.mbs(PsT.SSa, JXC.XJM)
+        vxU.mbs(PsT.dBF, JXC.EoU)
+        vxU.mbs(PsT.qPC, JXC.yIr)
+        vxU.mbs(PsT.HkI, JXC.yIr)
+        vxU.mbs(PsT.MHX, JXC.yIr)
+        vxU.mbs(PsT.bCA, JXC.yIr)
+        vxU.mbs(PsT.DFN, JXC.EoU)
+        vxU.mbs(PsT.MeO, JXC.EoU)
+        vxU.mbs(PsT.Ruy, JXC.EoU)
+        vxU.mbs(PsT.ERROR, JXC.yIr)
+        vxU.mbs(PsT.PKE, JXC.EoU)
+        vxU.mbs(PsT.jpR, JXC.yIr)
+        vxU.mbs(PsT.BBG, JXC.XJM)
+        vxU.mbs(PsT.ebk, JXC.XJM)
+        vxU.mbs(PsT.KAY, JXC.XJM)
+        vxU.mbs(PsT.BMv, JXC.yIr)
+        vxU.mbs(PsT.DKg, JXC.yIr)
+        vxU.mbs(PsT.Mvk, JXC.yIr)
+        vxU.mbs(PsT.Xxs, JXC.yIr)
+        vxU.mbs(PsT.TMs, JXC.XJM)
+        vxU.mbs(PsT.gFz, JXC.XJM)
+        vxU.mbs(PsT.uWt, JXC.XJM)
+        vxU.mbs(PsT.gMY, JXC.XJM)
+        vxU.mbs(PsT.MgJ, JXC.yIr)
+        vxU.mbs(PsT.lEV, JXC.yIr)
+        vxU.mbs(PsT.MDF, JXC.XJM)
+        vxU.mbs(PsT.GVE, JXC.yIr)
+        vxU.mbs(PsT.yHj, JXC.yIr)
+        vxU.mbs(PsT.rDh, JXC.XJM)
+        vxU.mbs(PsT.bwH, JXC.yIr)
+        vxU.mbs(PsT.xsU, JXC.yIr)
+        vxU.mbs(PsT.cIA, JXC.yIr)
+        vxU.mbs(PsT.MWI, JXC.XJM)
+        vxU.mbs(PsT.Wqe, JXC.yIr)
+        vxU.mbs(PsT.oxp, JXC.yIr)
+        for Pdu in range(0, 255):
+            vxU.eeB.append(-1)
+        vxU.eeB[vxU.pHs] = 0x01;
+        vxU.eeB[vxU.fTy] = 0x02;
+        vxU.eeB[vxU.YiE] = 0x03;
+        vxU.eeB[wmQ.aOU] = 0x04;
+        vxU.eeB[wmQ.KDl] = 0x05;
+        vxU.eeB[wmQ.Ssa] = 0x06;
+        vxU.eeB[wmQ.rEO] = 0x07;
+        vxU.eeB[wmQ.Bdm] = 0x08;
+        vxU.eeB[33] = 0x09;
+        vxU.eeB[vxU.Hnb] = 0x0B;
+        for Pdu in range(0, 255):
+            vxU.PPf.append(-1)
+        for kEj in range(0, 128):
+            fpI = vxU.yjC(kEj)
+            if fpI != -1:
+                vxU.PPf[fpI] = kEj
     @staticmethod
-    def heU(fYg, hdr_type):
-        ETB.eKo[ETB.Rgs(fYg)] = hdr_type
+    def mbs(hbS, hdr_type):
+        vxU.rSa[vxU.Vxd(hbS)] = hdr_type
     @staticmethod
-    def IkZ(ehY):
-        Bhz = ETB.FUT(ehY)
-        iaS = 0
-        for ZtG in range(0, len(Bhz)):
-            UNE = ETB.CeD(Bhz[ZtG])
-            if UNE != -1:
-                iaS += 1
-        if iaS == 0:
-            mcf = bytearray()
-            mcf.extend(Bhz)
-            return mcf
-        kPY = []
-        for JlT in range(0, len(Bhz) + iaS):
-            kPY.append(0)
-        ZtG = 0
-        RlS = 0
-        while ZtG < len(Bhz):
-            UNE = ETB.CeD(Bhz[ZtG])
-            if UNE != -1:
-                kPY[RlS] = ETB.Lke
-                kPY[RlS + 1] = UNE
-                RlS += 1
+    def JpP(emi):
+        Zfa = vxU.ULF(emi)
+        hZw = 0
+        for qZD in range(0, len(Zfa)):
+            eeB = vxU.yjC(Zfa[qZD])
+            if eeB != -1:
+                hZw += 1
+        if hZw == 0:
+            YoI = bytearray()
+            YoI.extend(Zfa)
+            return YoI
+        eTR = []
+        for kEj in range(0, len(Zfa) + hZw):
+            eTR.append(0)
+        qZD = 0
+        iAf = 0
+        while qZD < len(Zfa):
+            eeB = vxU.yjC(Zfa[qZD])
+            if eeB != -1:
+                eTR[iAf] = vxU.YiE
+                eTR[iAf + 1] = eeB
+                iAf += 1
             else:
-                kPY[RlS] = Bhz[ZtG]
-            ZtG += 1
-            RlS += 1
-        mcf = bytearray()
-        mcf.extend(kPY)
-        return mcf
+                eTR[iAf] = Zfa[qZD]
+            qZD += 1
+            iAf += 1
+        YoI = bytearray()
+        YoI.extend(eTR)
+        return YoI
     @staticmethod
-    def Qkf(Bhz):
-        iaS = 0
-        for ZtG in range(0, len(Bhz)):
-            UNE = ETB.CeD(Bhz[ZtG])
-            if UNE != -1:
-                iaS += 1
-        if iaS == 0:
-            return Bhz
-        kPY = []
-        for JlT in range(0, len(Bhz) + iaS):
-            kPY.append(0)
-        ZtG = 0
-        RlS = 0
-        while ZtG < len(Bhz):
-            UNE = ETB.CeD(Bhz[ZtG])
-            if UNE != -1:
-                kPY[RlS] = ETB.Lke
-                kPY[RlS + 1] = UNE
-                RlS += 1
+    def AMG(Zfa):
+        hZw = 0
+        for qZD in range(0, len(Zfa)):
+            eeB = vxU.yjC(Zfa[qZD])
+            if eeB != -1:
+                hZw += 1
+        if hZw == 0:
+            return Zfa
+        eTR = []
+        for kEj in range(0, len(Zfa) + hZw):
+            eTR.append(0)
+        qZD = 0
+        iAf = 0
+        while qZD < len(Zfa):
+            eeB = vxU.yjC(Zfa[qZD])
+            if eeB != -1:
+                eTR[iAf] = vxU.YiE
+                eTR[iAf + 1] = eeB
+                iAf += 1
             else:
-                kPY[RlS] = Bhz[ZtG]
-            ZtG += 1
-            RlS += 1
-        mcf = bytearray()
-        mcf.extend(kPY)
-        return mcf
+                eTR[iAf] = Zfa[qZD]
+            qZD += 1
+            iAf += 1
+        YoI = bytearray()
+        YoI.extend(eTR)
+        return YoI
     @staticmethod
-    def Teg(ehY):
-        Bhz = list(struct.unpack(len(ehY) * 'B', ehY))
-        iaS = 0
-        if len(Bhz) == 0:
-            return ehY
-        for ZtG in range(0, len(Bhz)):
-            if Bhz[ZtG] == ETB.Lke:
-                iaS += 1
-        kPY = []
-        for JlT in range(0, len(Bhz) - iaS):
-            kPY.append(0)
-        ZtG = 0
-        RlS = 0
-        while ZtG < len(Bhz):
-            dnS = Bhz[ZtG]
-            if dnS == ETB.Lke:
-                if ZtG + 1 < len(Bhz):
-                    kPY[RlS] = ETB.WSX(Bhz[ZtG + 1])
-                    if kPY[RlS] == -1:
+    def KAb(emi):
+        Zfa = list(struct.unpack(len(emi) * 'B', emi))
+        hZw = 0
+        if len(Zfa) == 0:
+            return emi
+        for qZD in range(0, len(Zfa)):
+            if Zfa[qZD] == vxU.YiE:
+                hZw += 1
+        eTR = []
+        for kEj in range(0, len(Zfa) - hZw):
+            eTR.append(0)
+        qZD = 0
+        iAf = 0
+        while qZD < len(Zfa):
+            qeI = Zfa[qZD]
+            if qeI == vxU.YiE:
+                if qZD + 1 < len(Zfa):
+                    eTR[iAf] = vxU.rxr(Zfa[qZD + 1])
+                    if eTR[iAf] == -1:
                         raise ValueError()
-                    ZtG += 1
+                    qZD += 1
                 else:
                     raise ValueError()
             else:
-                kPY[RlS] = dnS
-            ZtG += 1
-            RlS += 1
-        mcf = bytearray()
-        mcf.extend(kPY)
-        return mcf
+                eTR[iAf] = qeI
+            qZD += 1
+            iAf += 1
+        YoI = bytearray()
+        YoI.extend(eTR)
+        return YoI
     @staticmethod
-    def ZgR(ehY, _headerId, _headerType):
-        LGn = None
-        tZQ = ehY.find(chr(ETB.Rgs(_headerId)))
-        dUz = ehY.find(chr(ETB.tWC), tZQ)
-        if tZQ != -1 and dUz != -1:
-            WCL = ehY[tZQ + 1:dUz]
-            if _headerType == For.gZQ:
-                LGn = WCL
-            elif _headerType == For.Cph:
-                LGn = WCL
-            elif _headerType == For.BTj:
-                LGn = WCL
-            elif _headerType == For.wiZ:
-                LGn = ETB.wxD(WCL);
-        return LGn
+    def dbG(emi, _headerId, _headerType):
+        mFe = None
+        Omr = emi.find(chr(vxU.Vxd(_headerId)))
+        XdO = emi.find(chr(vxU.fTy), Omr)
+        if Omr != -1 and XdO != -1:
+            tRC = emi[Omr + 1:XdO]
+            if _headerType == JXC.Kdr:
+                mFe = tRC
+            elif _headerType == JXC.EoU:
+                mFe = tRC
+            elif _headerType == JXC.XJM:
+                mFe = tRC
+            elif _headerType == JXC.yIr:
+                mFe = vxU.CNe(tRC);
+        return mFe
     @staticmethod
-    def wxD(_dataString):
-        ehY = list(struct.unpack(len(_dataString) * 'B', _dataString))
-        kPY = 0
-        mKj = -1
+    def CNe(_dataString):
+        emi = list(struct.unpack(len(_dataString) * 'B', _dataString))
+        eTR = 0
+        JrC = -1
         _val = 0
-        WQZ = len(ehY)
-        fFU = 0
-        if WQZ == 1:
-            return ehY[0]
-        elif WQZ == 2 and ehY[fFU] == ETB.Lke:
-            dnS = ETB.WSX(ehY[fFU + 1])
-            if dnS != -1:
-                return dnS
+        oPO = len(emi)
+        xgQ = 0
+        if oPO == 1:
+            return emi[0]
+        elif oPO == 2 and emi[xgQ] == vxU.YiE:
+            qeI = vxU.rxr(emi[xgQ + 1])
+            if qeI != -1:
+                return qeI
             else:
                 raise ValueError()
-        while WQZ > 0:
-            dnS = ehY[fFU]
-            fFU += 1
-            if dnS == ETB.Lke:
-                if WQZ - 1 < 0:
+        while oPO > 0:
+            qeI = emi[xgQ]
+            xgQ += 1
+            if qeI == vxU.YiE:
+                if oPO - 1 < 0:
                     raise ValueError()
-                WQZ -= 1
-                dnS = ehY[fFU]
-                fFU += 1
-                Mkc = ETB.WSX(dnS)
-                if Mkc == -1:
+                oPO -= 1
+                qeI = emi[xgQ]
+                xgQ += 1
+                FlC = vxU.rxr(qeI)
+                if FlC == -1:
                     raise ValueError()
             else:
-                Mkc = dnS
-            if mKj > 0:
-                _val |= Mkc >> mKj
-                kPY = kPY << 8 | (_val if _val >= 0   else _val + 256)
-                _val = (Mkc << (8 - mKj))
+                FlC = qeI
+            if JrC > 0:
+                _val |= FlC >> JrC
+                eTR = eTR << 8 | (_val if _val >= 0   else _val + 256)
+                _val = (FlC << (8 - JrC))
             else:
-                _val = (Mkc << - mKj)
-            mKj = (mKj + 7) % 8;
-            WQZ -= 1
-        return kPY
+                _val = (FlC << - JrC)
+            JrC = (JrC + 7) % 8;
+            oPO -= 1
+        return eTR
     @staticmethod
-    def sKV(_val):
+    def xQb(_val):
         if (int(_val) & 0xFFFFFF80) == 0:
-            JlT = ETB.CeD(_val)
-            if JlT == -1:
+            kEj = vxU.yjC(_val)
+            if kEj == -1:
                 return struct.pack('B', _val)
             else:
-                return struct.pack('BB', ETB.Lke, JlT)
-        DKd = 0
+                return struct.pack('BB', vxU.YiE, kEj)
+        nMX = 0
         if (int(_val) & 0xFF000000) != 0:
-            DKd = 24
+            nMX = 24
         elif (int(_val) & 0x00FF0000) != 0:
-            DKd = 16
+            nMX = 16
         else:
-            DKd = 8
-        kPY = []
-        for JlT in range(0, 10):
-            kPY.append(0)
-        PmD = 0
-        TWc = 0
-        while DKd >= 0:
-            b = ((int(_val) >> DKd) & 0xFF)
-            TWc += 1
-            kPY[PmD] |= ((b if b >= 0 else b + 256) >> TWc)
-            UNE = ETB.CeD(kPY[PmD])
-            if UNE != -1:
-                kPY[PmD] = ETB.Lke
-                kPY[PmD + 1] = UNE
-                PmD += 1
-            PmD += 1
-            kPY[PmD] |= (b << (7 - TWc)) & 0x7F;
-            DKd -= 8
-        UNE = ETB.CeD(kPY[PmD])
-        if UNE != -1:
-            kPY[PmD] = ETB.Lke
-            kPY[PmD + 1] = UNE
-            PmD += 1
-        PmD += 1
-        if PmD < len(kPY):
-            kPY = kPY[0:PmD]
-        mcf = bytearray()
-        mcf.extend(kPY)
-        return mcf
+            nMX = 8
+        eTR = []
+        for kEj in range(0, 10):
+            eTR.append(0)
+        gVV = 0
+        zvJ = 0
+        while nMX >= 0:
+            b = ((int(_val) >> nMX) & 0xFF)
+            zvJ += 1
+            eTR[gVV] |= ((b if b >= 0 else b + 256) >> zvJ)
+            eeB = vxU.yjC(eTR[gVV])
+            if eeB != -1:
+                eTR[gVV] = vxU.YiE
+                eTR[gVV + 1] = eeB
+                gVV += 1
+            gVV += 1
+            eTR[gVV] |= (b << (7 - zvJ)) & 0x7F;
+            nMX -= 8
+        eeB = vxU.yjC(eTR[gVV])
+        if eeB != -1:
+            eTR[gVV] = vxU.YiE
+            eTR[gVV + 1] = eeB
+            gVV += 1
+        gVV += 1
+        if gVV < len(eTR):
+            eTR = eTR[0:gVV]
+        YoI = bytearray()
+        YoI.extend(eTR)
+        return YoI
     @staticmethod
-    def WSX(b):
+    def rxr(b):
         if b >= 0:
-            return ETB.qUm[int(b)]
+            return vxU.PPf[int(b)]
         else:
             return -1
     @staticmethod
-    def CeD(b):
+    def yjC(b):
         if b >= 0:
-            return ETB.UNE[int(b)]
+            return vxU.eeB[int(b)]
         else:
             return -1
     @staticmethod
-    def Rgs(h):
-        return ETB.FRG[int(h)]
+    def Vxd(h):
+        return vxU.KcZ[int(h)]
     @staticmethod
-    def waX(o):
-        return ETB.YuP[int(o)]
+    def Weh(o):
+        return vxU.DTD[int(o)]
     @staticmethod
-    def YNl(fYg):
-        AYz = ETB.Rgs(fYg)
-        return ETB.eKo[AYz]
+    def pvf(hbS):
+        HOM = vxU.Vxd(hbS)
+        return vxU.rSa[HOM]
     @staticmethod
-    def FUT(str_value):
-        dqH = str_value.encode('utf-8')
-        return list(struct.unpack(len(dqH) * 'B', dqH))
+    def ULF(str_value):
+        dtF = str_value.encode('utf-8')
+        return list(struct.unpack(len(dtF) * 'B', dtF))
     @staticmethod
-    def Kbv(b):
+    def pkw(b):
         if b < 0:
             return None
-        return ETB.gNU[b]
-class sJO:
-    KLK = 0
-    vKi = 1
-    dQH = 2
-    TYb = 3
-    blF = 4
-    klX = 5
-    IzP = 6
-    cRR = 7
-    KDO = 8
-    fqS = 9
+        return vxU.VFw[b]
+class oWA:
+    zmZ = 0
+    fEB = 1
+    rUO = 2
+    HWc = 3
+    unY = 4
+    xHp = 5
+    dCD = 6
+    wiS = 7
+    Jue = 8
+    Wqi = 9
     CLIENT_PUBLISH_RESPONSE = 10
-    ojR = 11
-class aZG:
-    SZC = 0
-    Zwl = 1
-    EME = 2
-    BLq = 3
-    Xvv = 4
-    AAX = 5
-    JqS = 6
-    frl = 7
-    Yof = 8
+    LOZ = 11
+class PsT:
+    SSa = 0
+    dBF = 1
+    qPC = 2
+    HkI = 3
+    MHX = 4
+    bCA = 5
+    DFN = 6
+    MeO = 7
+    Ruy = 8
     ERROR = 9
-    RvJ = 10
-    hPV = 11
-    TXN = 12
-    vsJ = 13
-    rqV = 14
-    JeD = 15
-    SQj = 16
-    TJE = 17
-    zGr = 18
-    jLU = 19
-    Qeq = 20
-    opV = 21
-    Fxg = 22
-    lSg = 23
-    dbx = 24
-    PNz = 25
-    VPu = 26
-    ODC = 27
-    CjW = 28
-    lfM = 29
-    AlZ = 30
-    sZU = 31
-    Iov = 32
-    Oaa = 33
-    gHn = 34
-class For:
-    gZQ = 0
-    Cph = 1
-    BTj = 2
-    wiZ = 3
-class JHs:
-    PuT = 0x00
-    xGa = 0x22
-    pie = 0x0A
-    tIc = 0x0D
-    HVu = 0x5C
-class AZa:
-    IwM = 1
-    jSG = 2
-    ycH = 3
-    AGA = 4
-class uNa:
-    kFY = 0
-    QEm = 1
-    JIG = 2
-    AqZ = 3
-    qlI = 4
-    mQq = 5
-    eQo = 6
-    MbT = 7
-    qSd = 8
-class aqF:
+    PKE = 10
+    jpR = 11
+    BBG = 12
+    ebk = 13
+    KAY = 14
+    BMv = 15
+    DKg = 16
+    Mvk = 17
+    Xxs = 18
+    TMs = 19
+    gFz = 20
+    uWt = 21
+    gMY = 22
+    MgJ = 23
+    lEV = 24
+    MDF = 25
+    GVE = 26
+    yHj = 27
+    rDh = 28
+    bwH = 29
+    xsU = 30
+    cIA = 31
+    MWI = 32
+    Wqe = 33
+    oxp = 34
+class JXC:
+    Kdr = 0
+    EoU = 1
+    XJM = 2
+    yIr = 3
+class wmQ:
+    aOU = 0x00
+    rEO = 0x22
+    KDl = 0x0A
+    Ssa = 0x0D
+    Bdm = 0x5C
+class Bhs:
+    CgC = 1
+    USL = 2
+    ucE = 3
+    vao = 4
+class CXT:
+    svJ = 0
+    WwQ = 1
+    Edn = 2
+    WHB = 3
+    Gnq = 4
+    zTW = 5
+    oOt = 6
+    XGh = 7
+    LJK = 8
+class oxm:
     SNAPSHOT = "1"
     UPDATE = "2"
     RECOVERED = "3"
     HISTORICAL = "4"
-class pSU:
-    ucH = "d"
-    iZf = "a"
-ETB.xlW()
-class FCV(lYT):
-    FuV = "POST / HTTP/1.1\r\n"
-    tZJ = "Host: "
-    iJA = "Content-Length: "
-    pOK = "000"
-    ekO = "\r\n"
+class Snd:
+    eFU = "d"
+    UZd = "a"
+vxU.PLD()
+class sUN(PyJ):
+    Iww = "POST / HTTP/1.1\r\n"
+    ZmT = "Host: "
+    JgV = "Content-Length: "
+    mDG = "000"
+    bEb = "\r\n"
     def __init__(self):
         pass
-    def EWQ(self, host):
-        MXh = qQA()
-        MXh.extend(bytes(FCV.FuV, 'utf-8'))
-        MXh.extend(bytes(FCV.tZJ, 'utf-8'))
-        MXh.extend(bytes(host, 'utf-8'))
-        MXh.extend(bytes(FCV.ekO, 'utf-8'))
-        MXh.extend(bytes(FCV.iJA, 'utf-8'))
-        MXh.content_length_mark = len(MXh.mcf)
-        MXh.extend(bytes(FCV.pOK, 'utf-8'))
-        MXh.extend(bytes(FCV.ekO, 'utf-8'))
-        MXh.extend(bytes(FCV.ekO, 'utf-8'))
-        MXh.payload_mark = len(MXh.mcf)
-        return MXh
-    def WTN(self, MXh):
-        VON = len(MXh.mcf)
-        yTA = len(MXh.mcf) - MXh.payload_mark
-        NlA = bytes(str(yTA), 'utf-8')
-        if len(NlA) <= len(FCV.pOK):
-            Jaf = 0
-            for JlT in range(len(FCV.pOK) - len(NlA),
-                           len(FCV.pOK)):
-                MXh.mcf[MXh.content_length_mark + JlT] = NlA[Jaf]
-                Jaf = Jaf + 1
+    def GqZ(self, host):
+        jiT = obv()
+        jiT.extend(bytes(sUN.Iww, 'utf-8'))
+        jiT.extend(bytes(sUN.ZmT, 'utf-8'))
+        jiT.extend(bytes(host, 'utf-8'))
+        jiT.extend(bytes(sUN.bEb, 'utf-8'))
+        jiT.extend(bytes(sUN.JgV, 'utf-8'))
+        jiT.content_length_mark = len(jiT.YoI)
+        jiT.extend(bytes(sUN.mDG, 'utf-8'))
+        jiT.extend(bytes(sUN.bEb, 'utf-8'))
+        jiT.extend(bytes(sUN.bEb, 'utf-8'))
+        jiT.payload_mark = len(jiT.YoI)
+        return jiT
+    def Skw(self, jiT):
+        Kif = len(jiT.YoI)
+        YDk = len(jiT.YoI) - jiT.payload_mark
+        GqR = bytes(str(YDk), 'utf-8')
+        if len(GqR) <= len(sUN.mDG):
+            sZK = 0
+            for kEj in range(len(sUN.mDG) - len(GqR),
+                           len(sUN.mDG)):
+                jiT.YoI[jiT.content_length_mark + kEj] = GqR[sZK]
+                sZK = sZK + 1
         else:
-            SUF = MXh.mcf[0:MXh.content_length_mark]
-            SUF.extend(NlA)
-            SUF.extend(MXh.mcf[(MXh.content_length_mark + len(FCV.pOK)):])
-            MXh.mcf = SUF
-    def AZx(self, host, encrypted):
-        MXh = qQA()
-        return MXh
+            UPc = jiT.YoI[0:jiT.content_length_mark]
+            UPc.extend(GqR)
+            UPc.extend(jiT.YoI[(jiT.content_length_mark + len(sUN.mDG)):])
+            jiT.YoI = UPc
+    def HLn(self, host, encrypted):
+        jiT = obv()
+        return jiT
 import random
-class MeW(lYT):
-    fyW = "GET /WebSocketConnection HTTP/1.1\r\n"
-    fYA = "GET /WebSocketConnection-Secure HTTP/1.1\r\n"
-    QsG = "Host: "
-    Kxt = "Origin: "
-    UwR = "Upgrade: websocket\r\n"
-    vxn = "Sec-WebSocket-Key: 23eds34dfvce4\r\n"
-    vUc = "Sec-WebSocket-Version: 13\r\n"
-    ktR = "Sec-WebSocket-Protocol: pushv1\r\n"
-    Pzy = "Connection: Upgrade\r\n"
-    ekO = "\r\n"
-    PgD = 2
-    aBc = 10
-    BRp = 128
-    oAR = 128
-    def EWQ(self, host):
-        MXh = qQA()
-        VON = MeW.aBc
-        for JlT in range(0, 10):
-            MXh.extend(bytes([0]))
-        for JlT in range(0, 4):
-            VON += 1
-            dYQ = random.randint(0, 255)
-            MXh.extend([dYQ])
-        MXh.GAH(VON)
-        MXh.body_start_mark = VON
-        return MXh
-    def WTN(self, MXh):
-        bjx = MeW.oAR
-        bjx |= MeW.PgD
-        MXh.body_end_mark = len(MXh.mcf)
-        ixy = MXh.body_end_mark - MXh.body_start_mark
-        ZDV = self.ynF(ixy)
-        IMm = self.XKT(ixy, ZDV)
-        xYO = 0
-        TQY = 0
-        if ZDV == 1:
-            xYO = 8
-            TQY = 8
-            MXh.mcf[TQY] = bjx
-            MXh.mcf[TQY + 1] = IMm[0] | MeW.BRp
-        elif ZDV == 2:
-            xYO = 6
-            TQY = 6
-            MXh.mcf[TQY] = bjx
-            MXh.mcf[TQY + 1] = 126 | MeW.BRp
-            TQY += 2
-            for JlT in range(0, 2):
-                MXh.mcf[TQY + JlT] = IMm[JlT]
+class cAG(PyJ):
+    kSB = "GET /WebSocketConnection HTTP/1.1\r\n"
+    ruo = "GET /WebSocketConnection-Secure HTTP/1.1\r\n"
+    sRQ = "Host: "
+    Sen = "Origin: "
+    nKZ = "Upgrade: websocket\r\n"
+    aUc = "Sec-WebSocket-Key: 23eds34dfvce4\r\n"
+    Kga = "Sec-WebSocket-Version: 13\r\n"
+    cNI = "Sec-WebSocket-Protocol: pushv1\r\n"
+    RhG = "Connection: Upgrade\r\n"
+    bEb = "\r\n"
+    Zxf = 2
+    Zvm = 10
+    xCR = 128
+    NtQ = 128
+    def GqZ(self, host):
+        jiT = obv()
+        Kif = cAG.Zvm
+        for kEj in range(0, 10):
+            jiT.extend(bytes([0]))
+        for kEj in range(0, 4):
+            Kif += 1
+            rZr = random.randint(0, 255)
+            jiT.extend([rZr])
+        jiT.yTC(Kif)
+        jiT.body_start_mark = Kif
+        return jiT
+    def Skw(self, jiT):
+        Bpl = cAG.NtQ
+        Bpl |= cAG.Zxf
+        jiT.body_end_mark = len(jiT.YoI)
+        eRJ = jiT.body_end_mark - jiT.body_start_mark
+        wsg = self.ZlH(eRJ)
+        rGs = self.YIO(eRJ, wsg)
+        USB = 0
+        jis = 0
+        if wsg == 1:
+            USB = 8
+            jis = 8
+            jiT.YoI[jis] = Bpl
+            jiT.YoI[jis + 1] = rGs[0] | cAG.xCR
+        elif wsg == 2:
+            USB = 6
+            jis = 6
+            jiT.YoI[jis] = Bpl
+            jiT.YoI[jis + 1] = 126 | cAG.xCR
+            jis += 2
+            for kEj in range(0, 2):
+                jiT.YoI[jis + kEj] = rGs[kEj]
         else:
-            MXh.mcf[TQY] = bjx
-            MXh.mcf[TQY + 1] = 127 | MeW.BRp
-            TQY += 2
-            for JlT in range(0, 8):
-                MXh.mcf[TQY + JlT] = IMm[JlT]
-        Tth = bytearray()
-        Tth.extend([MXh.mcf[MXh.body_start_mark - 4]])
-        Tth.extend([MXh.mcf[MXh.body_start_mark - 3]])
-        Tth.extend([MXh.mcf[MXh.body_start_mark - 2]])
-        Tth.extend([MXh.mcf[MXh.body_start_mark - 1]])
-        WDE = 0
-        for JlT in range(MXh.body_start_mark, MXh.body_end_mark):
-            b = MXh.mcf[JlT] ^ Tth[WDE]
-            MXh.mcf[JlT] = b
-            if WDE == 3:
-                WDE = 0
+            jiT.YoI[jis] = Bpl
+            jiT.YoI[jis + 1] = 127 | cAG.xCR
+            jis += 2
+            for kEj in range(0, 8):
+                jiT.YoI[jis + kEj] = rGs[kEj]
+        vyH = bytearray()
+        vyH.extend([jiT.YoI[jiT.body_start_mark - 4]])
+        vyH.extend([jiT.YoI[jiT.body_start_mark - 3]])
+        vyH.extend([jiT.YoI[jiT.body_start_mark - 2]])
+        vyH.extend([jiT.YoI[jiT.body_start_mark - 1]])
+        yVF = 0
+        for kEj in range(jiT.body_start_mark, jiT.body_end_mark):
+            b = jiT.YoI[kEj] ^ vyH[yVF]
+            jiT.YoI[kEj] = b
+            if yVF == 3:
+                yVF = 0
             else:
-                WDE += 1
-        MXh.GAH(xYO)
-    def AZx(self, host, encrypted):
-        MXh = qQA()
+                yVF += 1
+        jiT.yTC(USB)
+    def HLn(self, host, encrypted):
+        jiT = obv()
         if encrypted is False:
-            MXh.extend(bytes(MeW.fyW, 'utf-8'))
+            jiT.extend(bytes(cAG.kSB, 'utf-8'))
         else:
-            MXh.extend(bytes(MeW.fYA, 'utf-8'))
-        MXh.extend(bytes(MeW.Kxt, 'utf-8'))
-        MXh.extend(bytes("http://" + str(host), 'utf-8'))
-        MXh.extend(bytes(MeW.ekO, 'utf-8'))
-        MXh.extend(bytes(MeW.QsG, 'utf-8'))
-        MXh.extend(bytes(str(host), 'utf-8'))
-        MXh.extend(bytes(MeW.ekO, 'utf-8'))
-        MXh.extend(bytes(MeW.UwR, 'utf-8'))
-        MXh.extend(bytes(MeW.Pzy, 'utf-8'))
-        MXh.extend(bytes(MeW.vxn, 'utf-8'))
-        MXh.extend(bytes(MeW.vUc, 'utf-8'))
-        MXh.extend(bytes(MeW.ktR, 'utf-8'))
-        MXh.extend(bytes(MeW.ekO, 'utf-8'))
-        return MXh
-    def ynF(self, size):
+            jiT.extend(bytes(cAG.ruo, 'utf-8'))
+        jiT.extend(bytes(cAG.Sen, 'utf-8'))
+        jiT.extend(bytes("http://" + str(host), 'utf-8'))
+        jiT.extend(bytes(cAG.bEb, 'utf-8'))
+        jiT.extend(bytes(cAG.sRQ, 'utf-8'))
+        jiT.extend(bytes(str(host), 'utf-8'))
+        jiT.extend(bytes(cAG.bEb, 'utf-8'))
+        jiT.extend(bytes(cAG.nKZ, 'utf-8'))
+        jiT.extend(bytes(cAG.RhG, 'utf-8'))
+        jiT.extend(bytes(cAG.aUc, 'utf-8'))
+        jiT.extend(bytes(cAG.Kga, 'utf-8'))
+        jiT.extend(bytes(cAG.cNI, 'utf-8'))
+        jiT.extend(bytes(cAG.bEb, 'utf-8'))
+        return jiT
+    def ZlH(self, size):
         if size <= 125:
             return 1
         elif size <= 65535:
             return 2
         return 8
-    def XKT(self, value, ZDV):
-        wGc = bytearray()
-        EyQ = 8 * ZDV - 8
-        for JlT in range(0, ZDV):
-            OsQ = self.Uwe(value, EyQ - 8 * JlT)
-            rGc = OsQ - (256 * int(OsQ / 256))
-            wGc.extend([rGc])
-        return wGc
-    def Uwe(self, val, n):
+    def YIO(self, value, wsg):
+        myd = bytearray()
+        ZSZ = 8 * wsg - 8
+        for kEj in range(0, wsg):
+            Ksy = self.ZzL(value, ZSZ - 8 * kEj)
+            JBv = Ksy - (256 * int(Ksy / 256))
+            myd.extend([JBv])
+        return myd
+    def ZzL(self, val, n):
         return (val % 0x100000000) >> n
 import time
 import zlib
 import base64
-class quY:
+class xuW:
     def __init__(self):
-        self._encoding = uNa.qSd
-    def NRi(self):
-        self._encoding = uNa.qlI
-    def dWO(self, mcf, entitlement_token, session_type, user_agent, version):
-        mcf.extend(bytes(chr(ETB.waX(sJO.ojR)), 'utf-8'))
+        self._encoding = CXT.LJK
+    def Lhq(self):
+        self._encoding = CXT.Gnq
+    def XoE(self, YoI, entitlement_token, session_type, user_agent, version):
+        YoI.extend(bytes(chr(vxU.Weh(oWA.LOZ)), 'utf-8'))
         if entitlement_token is not None:
-            self.tAr(mcf, ETB.Rgs(aZG.vsJ),
-                                   ETB.IkZ(entitlement_token))
+            self.Vjn(YoI, vxU.Vxd(PsT.ebk),
+                                   vxU.JpP(entitlement_token))
         if session_type is not None:
-            self.tAr(mcf, ETB.Rgs(aZG.lSg),
-                                   ETB.sKV(session_type))
+            self.Vjn(YoI, vxU.Vxd(PsT.MgJ),
+                                   vxU.xQb(session_type))
         if user_agent is not None:
-            self.tAr(mcf, ETB.Rgs(aZG.Fxg),
-                                   ETB.IkZ(user_agent))
-        self.tAr(mcf, ETB.Rgs(aZG.lfM),
-                               ETB.sKV(version))
-        self.tAr(mcf, ETB.Rgs(aZG.Xvv),
-                               ETB.sKV(self._encoding))
-        mcf.extend(bytes(chr(ETB.EEH), 'utf-8'))
-    def qZi(self, mcf, guq, session_id):
-        mcf.extend(bytes(chr(ETB.waX(sJO.KLK)), 'utf-8'))
-        self.tAr(mcf, ETB.Rgs(aZG.SZC),
-                               ETB.IkZ(guq.get_subject()))
+            self.Vjn(YoI, vxU.Vxd(PsT.gMY),
+                                   vxU.JpP(user_agent))
+        self.Vjn(YoI, vxU.Vxd(PsT.bwH),
+                               vxU.xQb(version))
+        self.Vjn(YoI, vxU.Vxd(PsT.MHX),
+                               vxU.xQb(self._encoding))
+        YoI.extend(bytes(chr(vxU.pHs), 'utf-8'))
+    def XOx(self, YoI, qxh, session_id):
+        YoI.extend(bytes(chr(vxU.Weh(oWA.zmZ)), 'utf-8'))
+        self.Vjn(YoI, vxU.Vxd(PsT.SSa),
+                               vxU.JpP(qxh.get_subject()))
         if session_id is not None and session_id >= 0:
-            self.tAr(mcf, ETB.Rgs(aZG.AAX),
-                                   ETB.sKV(session_id))
-        nqs = guq.HNj()
-        if nqs == fdd.lwB:
-            self.tAr(mcf, ETB.Rgs(aZG.ODC),
-                                   ETB.sKV(guq.FZC()))
-        elif nqs == fdd.jgb:
-            self.tAr(mcf, ETB.Rgs(aZG.BLq),
-                                   ETB.sKV(guq.jrJ()))
-            self.tAr(mcf, ETB.Rgs(aZG.EME),
-                                   ETB.sKV((guq.get_seq() + 1)))
-        self.tAr(mcf, ETB.Rgs(aZG.Xvv),
-                               ETB.sKV(self._encoding))
-        mcf.extend(bytes(chr(ETB.EEH), 'utf-8'))
-    def Wti(self, mcf, session_id, guq):
-        mcf.extend(bytes(chr(ETB.waX(sJO.vKi)), 'utf-8'))
-        self.tAr(mcf, ETB.Rgs(aZG.SZC),
-                               ETB.IkZ(guq.get_subject()))
+            self.Vjn(YoI, vxU.Vxd(PsT.bCA),
+                                   vxU.xQb(session_id))
+        vSa = qxh.UMk()
+        if vSa == bqk.njB:
+            self.Vjn(YoI, vxU.Vxd(PsT.yHj),
+                                   vxU.xQb(qxh.XCr()))
+        elif vSa == bqk.APR:
+            self.Vjn(YoI, vxU.Vxd(PsT.HkI),
+                                   vxU.xQb(qxh.uzS()))
+            self.Vjn(YoI, vxU.Vxd(PsT.qPC),
+                                   vxU.xQb((qxh.get_seq() + 1)))
+        self.Vjn(YoI, vxU.Vxd(PsT.MHX),
+                               vxU.xQb(self._encoding))
+        YoI.extend(bytes(chr(vxU.pHs), 'utf-8'))
+    def fkD(self, YoI, session_id, qxh):
+        YoI.extend(bytes(chr(vxU.Weh(oWA.fEB)), 'utf-8'))
+        self.Vjn(YoI, vxU.Vxd(PsT.SSa),
+                               vxU.JpP(qxh.get_subject()))
         if session_id >= 0:
-            self.tAr(mcf, ETB.Rgs(aZG.AAX),
-                                   ETB.sKV(session_id))
-        self.tAr(mcf, ETB.Rgs(aZG.Xvv),
-                               ETB.sKV(self._encoding))
-        mcf.extend(bytes(chr(ETB.EEH), 'utf-8'))
-    def kCk(self, mcf, message, session_id):
-        mcf.extend(bytes(chr(ETB.waX(sJO.fqS)), 'utf-8'))
-        self.tAr(mcf, ETB.Rgs(aZG.SZC),
-                               ETB.IkZ(message.get_subject()))
+            self.Vjn(YoI, vxU.Vxd(PsT.bCA),
+                                   vxU.xQb(session_id))
+        self.Vjn(YoI, vxU.Vxd(PsT.MHX),
+                               vxU.xQb(self._encoding))
+        YoI.extend(bytes(chr(vxU.pHs), 'utf-8'))
+    def Eye(self, YoI, message, session_id):
+        YoI.extend(bytes(chr(vxU.Weh(oWA.Wqi)), 'utf-8'))
+        self.Vjn(YoI, vxU.Vxd(PsT.SSa),
+                               vxU.JpP(message.get_subject()))
         if message.is_compressed():
-            LbI = self.Dbf(message.get_content())
-            if len(LbI) < len(message.get_content()):
-                self.tAr(mcf, ETB.Rgs(aZG.Zwl),
-                                       ETB.Qkf(LbI))
+            djx = self.mJH(message.get_content())
+            if len(djx) < len(message.get_content()):
+                self.Vjn(YoI, vxU.Vxd(PsT.dBF),
+                                       vxU.AMG(djx))
             else:
-                self.tAr(mcf, ETB.Rgs(aZG.Zwl),
-                                       ETB.Qkf(message.get_content()))
+                self.Vjn(YoI, vxU.Vxd(PsT.dBF),
+                                       vxU.AMG(message.get_content()))
                 message.set_compressed(False)
         else:
-            self.tAr(mcf, ETB.Rgs(aZG.Zwl),
-                                   ETB.Qkf(message.get_content()))
+            self.Vjn(YoI, vxU.Vxd(PsT.dBF),
+                                   vxU.AMG(message.get_content()))
         if message.get_reply_to_subject() is not None:
-            self.tAr(mcf, ETB.Rgs(aZG.CjW),
-                                   ETB.IkZ(message.get_reply_to_subject()))
+            self.Vjn(YoI, vxU.Vxd(PsT.rDh),
+                                   vxU.JpP(message.get_reply_to_subject()))
         if message.get_closure() is not None and len(message.get_content()) > 0:
-            self.tAr(mcf, ETB.Rgs(aZG.PNz),
-                                   ETB.IkZ(message.get_closure()))
+            self.Vjn(YoI, vxU.Vxd(PsT.MDF),
+                                   vxU.JpP(message.get_closure()))
         if session_id >= 0:
-            self.tAr(mcf, ETB.Rgs(aZG.AAX),
-                                   ETB.sKV(session_id))
+            self.Vjn(YoI, vxU.Vxd(PsT.bCA),
+                                   vxU.xQb(session_id))
         if message.is_retained() is True:
-            self.tAr(mcf, ETB.Rgs(aZG.TJE),
-                                   ETB.sKV(1))
+            self.Vjn(YoI, vxU.Vxd(PsT.Mvk),
+                                   vxU.xQb(1))
         else:
-            self.tAr(mcf, ETB.Rgs(aZG.TJE),
-                                   ETB.sKV(0))
-        kNo = message.get_qos()
-        if kNo == QoS.GUARANTEED:
-            self.tAr(mcf, ETB.Rgs(aZG.zGr),
-                                   ETB.sKV(QoS.GUARANTEED))
-        elif kNo == QoS.STANDARD:
-            self.tAr(mcf, ETB.Rgs(aZG.zGr),
-                                   ETB.sKV(QoS.STANDARD))
+            self.Vjn(YoI, vxU.Vxd(PsT.Mvk),
+                                   vxU.xQb(0))
+        nqb = message.get_qos()
+        if nqb == QoS.GUARANTEED:
+            self.Vjn(YoI, vxU.Vxd(PsT.Xxs),
+                                   vxU.xQb(QoS.GUARANTEED))
+        elif nqb == QoS.STANDARD:
+            self.Vjn(YoI, vxU.Vxd(PsT.Xxs),
+                                   vxU.xQb(QoS.STANDARD))
         if message.is_compressed():
-            self.tAr(mcf, ETB.Rgs(aZG.gHn),
-                                   ETB.sKV(1))
-        self.tAr(mcf, ETB.Rgs(aZG.Xvv),
-                               ETB.sKV(self._encoding))
-        mcf.extend(bytes(chr(ETB.EEH), 'utf-8'))
-    def Fuz(self, mcf, session_id):
-        mcf.extend(bytes(chr(ETB.waX(sJO.TYb)), 'utf-8'))
+            self.Vjn(YoI, vxU.Vxd(PsT.oxp),
+                                   vxU.xQb(1))
+        self.Vjn(YoI, vxU.Vxd(PsT.MHX),
+                               vxU.xQb(self._encoding))
+        YoI.extend(bytes(chr(vxU.pHs), 'utf-8'))
+    def vAi(self, YoI, session_id):
+        YoI.extend(bytes(chr(vxU.Weh(oWA.HWc)), 'utf-8'))
         if session_id >= 0:
-            self.tAr(mcf, ETB.Rgs(aZG.AAX),
-                                   ETB.sKV(session_id))
-        self.tAr(mcf, ETB.Rgs(aZG.Xvv),
-                               ETB.sKV(self._encoding))
-        mcf.extend(bytes(chr(ETB.EEH), 'utf-8'))
-    def hrD(self, mcf, guq, AMA, epoch, session_id):
-        mcf.extend(bytes(chr(ETB.waX(sJO.PUBLISH_ACK)), 'utf-8'))
-        self.tAr(mcf, ETB.Rgs(aZG.SZC),
-                               ETB.IkZ(guq))
-        self.tAr(mcf, ETB.Rgs(aZG.EME),
-                               ETB.sKV(AMA))
-        self.tAr(mcf, ETB.Rgs(aZG.BLq),
-                               ETB.sKV(epoch))
-        self.tAr(mcf, ETB.Rgs(aZG.AAX),
-                               ETB.sKV(session_id))
-        self.tAr(mcf, ETB.Rgs(aZG.Xvv),
-                               ETB.sKV(self._encoding))
-        mcf.extend(bytes(chr(ETB.EEH), 'utf-8'))
-    def tAr(self, mcf, TEW, ALH):
-        mcf.append(TEW)
-        mcf.extend(ALH)
-        mcf.append(ETB.tWC)
-    def Dbf(self, gYS):
+            self.Vjn(YoI, vxU.Vxd(PsT.bCA),
+                                   vxU.xQb(session_id))
+        self.Vjn(YoI, vxU.Vxd(PsT.MHX),
+                               vxU.xQb(self._encoding))
+        YoI.extend(bytes(chr(vxU.pHs), 'utf-8'))
+    def rMQ(self, YoI, qxh, CvH, epoch, session_id):
+        YoI.extend(bytes(chr(vxU.Weh(oWA.PUBLISH_ACK)), 'utf-8'))
+        self.Vjn(YoI, vxU.Vxd(PsT.SSa),
+                               vxU.JpP(qxh))
+        self.Vjn(YoI, vxU.Vxd(PsT.qPC),
+                               vxU.xQb(CvH))
+        self.Vjn(YoI, vxU.Vxd(PsT.HkI),
+                               vxU.xQb(epoch))
+        self.Vjn(YoI, vxU.Vxd(PsT.bCA),
+                               vxU.xQb(session_id))
+        self.Vjn(YoI, vxU.Vxd(PsT.MHX),
+                               vxU.xQb(self._encoding))
+        YoI.extend(bytes(chr(vxU.pHs), 'utf-8'))
+    def Vjn(self, YoI, esp, glt):
+        YoI.append(esp)
+        YoI.extend(glt)
+        YoI.append(vxU.fTy)
+    def mJH(self, ejx):
         try:
-            vGU = zlib.compressobj(zlib.Z_DEFAULT_COMPRESSION, zlib.DEFLATED, -15)
-            jlY = vGU.compress(gYS)
-            jlY += vGU.flush()
-            dyA = base64.b64encode(jlY)
+            zEX = zlib.compressobj(zlib.Z_DEFAULT_COMPRESSION, zlib.DEFLATED, -15)
+            wZA = zEX.compress(ejx)
+            wZA += zEX.flush()
+            EYC = base64.b64encode(wZA)
         except zlib.error as ex:
-            return gYS
-        return dyA
-    def ioR(self, ALH):
+            return ejx
+        return EYC
+    def tKT(self, glt):
         try:
-            mJx = base64.b64decode(ALH)
-            if not mJx:
-                return ALH
-            gNp = zlib.decompress(mJx, -15)
+            LuN = base64.b64decode(glt)
+            if not LuN:
+                return glt
+            zvY = zlib.decompress(LuN, -15)
         except base64.binascii.Error as ex:
-            return ALH
+            return glt
         except zlib.error as ex:
-            return ALH
-        return gNp
+            return glt
+        return zvY
 import socket
 import ssl
-class naa:
+class wYp:
     @staticmethod
-    def zxa(host, tig, encryption, socket_timeout_seconds):
-        FgL = None
+    def ARz(host, KHi, encryption, socket_timeout_seconds):
+        kFD = None
         if encryption is False:
-            FgL = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            FgL.settimeout(socket_timeout_seconds)
-            FgL.connect((host, tig))
+            kFD = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            kFD.settimeout(socket_timeout_seconds)
+            kFD.connect((host, KHi))
         else:
-            jsY = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            jsY.settimeout(socket_timeout_seconds)
+            IRK = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            IRK.settimeout(socket_timeout_seconds)
             try:
-                FgL = ssl.wrap_socket(jsY, ssl_version=ssl.PROTOCOL_TLSv1)
-            except:
-                FgL = ssl.wrap_socket(jsY)
-            FgL.connect((host, tig))
-        return FgL
-class ewp:
-    lkF = 80
-    glg = 443
-    kwj = 100
+                mgQ = ssl.create_default_context()
+                kFD = mgQ.wrap_socket(IRK, server_hostname=host)
+            except Exception as fpI: print(fpI)
+            kFD.connect((host, KHi))
+        return kFD
+class jzR:
+    Jxe = 80
+    nfd = 443
+    gEG = 100
     def __init__(self, address, encryption):
-        self._weight = ewp.kwj
+        self._weight = jzR.gEG
         self._unparsed_address = address
-        bwj = address.find(' ')
-        if bwj != -1:
-            self._weight = int(address[0:bwj])
+        FiE = address.find(' ')
+        if FiE != -1:
+            self._weight = int(address[0:FiE])
             if self._weight < 0 or self._weight > 100:
                 raise ValueError(
                     "The Weight of a clust Member must be between 0 and 100, Weight: " + str(self._weight))
-        JlT = address.find(']')
-        WDE = address.rfind(":")
-        nZw = None
-        tig = None
-        if WDE != -1 and WDE + 1 < len(address) and WDE >= JlT:
-            nZw = address[0:WDE]
-            tig = int(address[WDE + 1:])
+        kEj = address.find(']')
+        yVF = address.rfind(":")
+        bbu = None
+        KHi = None
+        if yVF != -1 and yVF + 1 < len(address) and yVF >= kEj:
+            bbu = address[0:yVF]
+            KHi = int(address[yVF + 1:])
         else:
-            nZw = address
+            bbu = address
             if encryption:
-                tig = self.glg
+                KHi = self.nfd
             else:
-                tig = self.lkF
-        if tig < 0 or tig > 65535:
+                KHi = self.Jxe
+        if KHi < 0 or KHi > 65535:
             raise ValueError("Invalid Port number")
-        if nZw == "":
+        if bbu == "":
             raise ValueError("Clust Member with null address")
-        if nZw == "*":
+        if bbu == "*":
             raise ValueError("Wildcard address (*) cannot be used to define a clust Member")
-        self._address = nZw
-        self._port = tig
-    def iis(self):
+        self._address = bbu
+        self._port = KHi
+    def pkG(self):
         return self._weight
-    def Ocs(self):
+    def ijn(self):
         return self._port
-    def Gsa(self):
+    def Cdx(self):
         return self._address
-    def EIn(self, PNn):
-        if (self._address == PNn._address):
-            if self._port == PNn._port:
+    def Xuy(self, hvC):
+        if (self._address == hvC._address):
+            if self._port == hvC._port:
                 return True
         return False
-    def aLt(self):
+    def Inb(self):
         return self._unparsed_address
     def __repr__(self) -> str:
-        bIs = "[Host="
-        bIs += str(self.Gsa())
-        bIs += ", Port="
-        bIs += str(self.Ocs())
-        bIs += "]"
-        return bIs
+        iFd = "[Host="
+        iFd += str(self.Cdx())
+        iFd += ", Port="
+        iFd += str(self.ijn())
+        iFd += "]"
+        return iFd
 import random
-class eAW:
+class icR:
     def __init__(self, servers, encryption):
         self._members = []
         self._inactive_members = []
         self._current_member = None
-        for JlT in range(0, len(servers)):
-            self._members.append(ewp(servers[JlT], encryption))
-    def Lie(self):
-        bBD = self.FSf()
-        if len(bBD) == 0:
+        for kEj in range(0, len(servers)):
+            self._members.append(jzR(servers[kEj], encryption))
+    def Jsw(self):
+        nZz = self.hWz()
+        if len(nZz) == 0:
             self._inactive_members = []
-            bBD = list(self._members)
-        LLm = self.umE(bBD)
-        self._current_member = bBD[LLm]
+            nZz = list(self._members)
+        Rgs = self.RzT(nZz)
+        self._current_member = nZz[Rgs]
         return self._current_member
-    def FSf(self):
-        bBD = list(self._members)
-        for hhP in self._members:
-            for SnC in self._inactive_members:
-                if hhP.EIn(SnC):
-                    bBD.remove(hhP)
-        return bBD
-    def umE(self, bBD):
-        LLm = -1
-        haR = 0
-        for hhP in bBD:
-            haR = haR + hhP.iis()
-        if haR == 0:
-            LLm = int(len(bBD) * random.uniform(0, 1))
+    def hWz(self):
+        nZz = list(self._members)
+        for xBI in self._members:
+            for IPW in self._inactive_members:
+                if xBI.Xuy(IPW):
+                    nZz.remove(xBI)
+        return nZz
+    def RzT(self, nZz):
+        Rgs = -1
+        SvO = 0
+        for xBI in nZz:
+            SvO = SvO + xBI.pkG()
+        if SvO == 0:
+            Rgs = int(len(nZz) * random.uniform(0, 1))
         else:
-            eyM = int(haR * random.uniform(0, 1))
-            haR = 0
-            for JlT in range(0 < len(bBD)):
-                haR = haR + bBD[JlT].iis()
-                if haR > eyM:
-                    LLm = JlT
+            MxX = int(SvO * random.uniform(0, 1))
+            SvO = 0
+            for kEj in range(0 < len(nZz)):
+                SvO = SvO + nZz[kEj].pkG()
+                if SvO > MxX:
+                    Rgs = kEj
                     break
-        return LLm
-    def sNv(self):
+        return Rgs
+    def XKi(self):
         return self._current_member
-    def AOg(self, PNn):
-        self._inactive_members.append(PNn)
+    def ULU(self, hvC):
+        self._inactive_members.append(hvC)
 import threading
-class wsQ:
-    klX = 0
-    TUX = 1
-class Pwp:
+class NYb:
+    xHp = 0
+    cDJ = 1
+class iFm:
     def __init__(self):
-        self._state = wsQ.klX
+        self._state = NYb.xHp
         self._lock = threading.Lock()
-    def GQZ(self, state):
+    def ZQg(self, state):
         with self._lock:
             self._state = state
-    def pXd(self):
+    def hid(self):
         with self._lock:
             return self._state
-class xSj:
+class Nnr:
     @staticmethod
-    def search(ALH, dataLength, pattern, patternLength):
-        xoF = [0] * patternLength
-        WDE = 0
+    def search(glt, dataLength, pattern, patternLength):
+        RHM = [0] * patternLength
+        yVF = 0
         len = 0
-        JlT = 1
-        while JlT < patternLength:
-            if pattern[JlT] == pattern[len]:
+        kEj = 1
+        while kEj < patternLength:
+            if pattern[kEj] == pattern[len]:
                 len += 1
-                xoF[JlT] = len
-                JlT += 1
+                RHM[kEj] = len
+                kEj += 1
             else:
                 if len != 0:
-                    len = xoF[len - 1]
+                    len = RHM[len - 1]
                 else:
-                    xoF[JlT] = 0
-                    JlT += 1
-        JlT = 0
-        while JlT < dataLength:
-            if pattern[WDE] == ALH[JlT]:
-                JlT += 1
-                WDE += 1
-            if WDE == patternLength:
-                return JlT - WDE
-            elif JlT < dataLength and pattern[WDE] != ALH[JlT]:
-                if WDE != 0:
-                    WDE = xoF[WDE - 1]
+                    RHM[kEj] = 0
+                    kEj += 1
+        kEj = 0
+        while kEj < dataLength:
+            if pattern[yVF] == glt[kEj]:
+                kEj += 1
+                yVF += 1
+            if yVF == patternLength:
+                return kEj - yVF
+            elif kEj < dataLength and pattern[yVF] != glt[kEj]:
+                if yVF != 0:
+                    yVF = RHM[yVF - 1]
                 else:
-                    JlT += 1
+                    kEj += 1
         return -1
 import abc
-class xSS(metaclass=abc.ABCMeta):
+class sBj(metaclass=abc.ABCMeta):
     @abc.abstractmethod
-    def Fpg(self, aer):
+    def LSS(self, NFc):
         pass
 import abc
-class oMq(metaclass=abc.ABCMeta):
+class YnO(metaclass=abc.ABCMeta):
     @abc.abstractmethod
-    def YFq(self, aer):
+    def LKe(self, NFc):
         pass
     @abc.abstractmethod
-    def yIb(self):
-        pass
-import abc
-class Lge(metaclass=abc.ABCMeta):
-    @abc.abstractmethod
-    def Ntf(self, status, info):
-        pass
-    @abc.abstractmethod
-    def OUt(self, message):
+    def fqB(self):
         pass
 import abc
-class iCr(metaclass=abc.ABCMeta):
+class avr(metaclass=abc.ABCMeta):
     @abc.abstractmethod
-    def gvX(self, Itu, connection, keep_alive):
+    def oYE(self, status, info):
         pass
     @abc.abstractmethod
-    def ArA(self, Itu, connection, disconnect_info):
+    def neo(self, message):
+        pass
+import abc
+class tNh(metaclass=abc.ABCMeta):
+    @abc.abstractmethod
+    def BVr(self, sWa, connection, keep_alive):
         pass
     @abc.abstractmethod
-    def llM(self, connection):
+    def nCJ(self, sWa, connection, disconnect_info):
+        pass
+    @abc.abstractmethod
+    def MRX(self, connection):
         pass
     @abc.abstractmethod
     def cancel(self):
         pass
     @abc.abstractmethod
-    def urp(self, value):
+    def uFI(self, value):
         pass
-class nbw(MigratoryDataMessage):
+class asV(MigratoryDataMessage):
     def __init__(self, _subject, _content, closure, retained, _message_type, qos_, _reply_subject, _compression):
         super().__init__(_subject, _content, closure)
         self._retained = retained
         self._message_type = _message_type
-        self.HQg = qos_
+        self.VXt = qos_
         self._reply_to_subject = _reply_subject
         self._compression = _compression
-    def Wmn(self, AMA):
-        self._seq = AMA
-    def EZA(self, epoch):
+    def ZFD(self, CvH):
+        self._seq = CvH
+    def nnO(self, epoch):
         self._epoch = epoch
-class uCm:
-    def __init__(self, ioi, status, info, migratory_data_message):
-        self.ioi = ioi
+class DVj:
+    def __init__(self, RIo, status, info, migratory_data_message):
+        self.RIo = RIo
         self.status = status
         self.info = info
         self.migratory_data_message = migratory_data_message
-class AEe:
-    VhZ = 0
-    OUB = 1
-class uTI:
-    ojR = 1,
-    Bwc = 2,
-    nvP = 3,
-    OrY = 4,
-    KLK = 5,
-    vKi = 6,
-    klX = 7,
-    aQV = 8,
-    zod = 9,
-    esg = 10,
-    dQH = 11,
-    hCP = 12
-class gby:
+class Dle:
+    qlT = 0
+    MjH = 1
+class nnZ:
+    LOZ = 1,
+    OSM = 2,
+    juR = 3,
+    nCc = 4,
+    zmZ = 5,
+    fEB = 6,
+    xHp = 7,
+    ZBr = 8,
+    afK = 9,
+    CYA = 10,
+    rUO = 11,
+    iDL = 12
+class QPy:
     def __init__(self, operation):
         self.operation = operation
         self.connection_uuid = None
         self.disconnect_reason = None
-        self.Pnj = None
+        self.EMh = None
         self.history = None
         self.md_message = None
         self.message = None
         self.info = None
     @staticmethod
-    def kUm():
-        return gby(uTI.ojR)
+    def chE():
+        return QPy(nnZ.LOZ)
     @staticmethod
-    def JDj(Pnj, history):
-        aer = gby(uTI.KLK)
-        aer.Pnj = Pnj
-        aer.history = history
-        return aer
+    def dDL(EMh, history):
+        NFc = QPy(nnZ.zmZ)
+        NFc.EMh = EMh
+        NFc.history = history
+        return NFc
     @staticmethod
-    def cjl(Pnj):
-        aer = gby(uTI.vKi)
-        aer.Pnj = Pnj
-        return aer
+    def VYS(EMh):
+        NFc = QPy(nnZ.fEB)
+        NFc.EMh = EMh
+        return NFc
     @staticmethod
-    def WNa(message):
-        aer = gby(uTI.dQH)
-        aer.md_message = message
-        return aer
+    def tEa(message):
+        NFc = QPy(nnZ.rUO)
+        NFc.md_message = message
+        return NFc
     @staticmethod
-    def iPq(message):
-        aer = gby(uTI.esg)
-        aer.message = message
-        return aer
+    def wCN(message):
+        NFc = QPy(nnZ.CYA)
+        NFc.message = message
+        return NFc
     @staticmethod
-    def TNU(uuid, disconnect_reason):
-        aer = gby(uTI.klX)
-        aer.connection_uuid = uuid
-        aer.disconnect_reason = disconnect_reason
-        return aer
+    def UTJ(uuid, disconnect_reason):
+        NFc = QPy(nnZ.xHp)
+        NFc.connection_uuid = uuid
+        NFc.disconnect_reason = disconnect_reason
+        return NFc
     @staticmethod
-    def Erm(disconnect_info):
-        aer = gby(uTI.zod)
-        aer.info = disconnect_info
-        return aer
+    def lFD(disconnect_info):
+        NFc = QPy(nnZ.afK)
+        NFc.info = disconnect_info
+        return NFc
     @staticmethod
-    def JsS():
-        aer = gby(uTI.aQV)
-        return aer
+    def Wdz():
+        NFc = QPy(nnZ.ZBr)
+        return NFc
     @staticmethod
-    def Plt():
-        aer = gby(uTI.Bwc)
-        return aer
+    def DPM():
+        NFc = QPy(nnZ.OSM)
+        return NFc
     @staticmethod
-    def Tbv():
-        aer = gby(uTI.OrY)
-        return aer
+    def Qkq():
+        NFc = QPy(nnZ.nCc)
+        return NFc
     @staticmethod
-    def szz():
-        aer = gby(uTI.nvP)
-        return aer
+    def bUY():
+        NFc = QPy(nnZ.juR)
+        return NFc
     @staticmethod
-    def nck():
-        aer = gby(uTI.hCP)
-        return aer
+    def wsp():
+        NFc = QPy(nnZ.iDL)
+        return NFc
 import re
-class jQt:
-    hlF = 0
-    Iww = 1
-    ZmJ = 2
-class gHQ:
-    nTx = "OK"
-    kuu = "DENY"
-    SZc = "connection_active_close_keep_alive"
-    BBf = "connection_active_close_seq_higher"
-    XHM = "connection_passive_close"
-    sMx = "connection_error"
-    eWz = "cache_ok"
-    OXT = "cache_ok_no_new_message"
-    ctf = "cache_ok_new_epoch"
-    SLM = "end"
-    AVo = "^\/([^\/]+\/)*([^\/]+|\*)$"
+class QZW:
+    EtN = 0
+    xIj = 1
+    KVJ = 2
+class XRm:
+    saS = "OK"
+    lFF = "DENY"
+    acu = "connection_active_close_keep_alive"
+    bhx = "connection_active_close_seq_higher"
+    zPk = "connection_passive_close"
+    BWx = "connection_error"
+    iTW = "cache_ok"
+    tZk = "cache_ok_no_new_message"
+    HOr = "cache_ok_new_epoch"
+    UDL = "end"
+    FAp = "^\/([^\/]+\/)*([^\/]+|\*)$"
     @staticmethod
-    def qin(WCL):
-        if not isinstance(WCL, str):
+    def VUV(tRC):
+        if not isinstance(tRC, str):
             return False
-        fhT = re.compile(gHQ.AVo)
-        if fhT.search(WCL) is not None:
+        QIq = re.compile(XRm.FAp)
+        if QIq.search(tRC) is not None:
             return True
         return False
     @staticmethod
-    def XvP(Pnj):
-        bGe = []
-        for guq in Pnj:
-            if guq is not None and gHQ.qin(guq):
-                bGe.append(guq)
-        return bGe
+    def Xft(EMh):
+        OoM = []
+        for qxh in EMh:
+            if qxh is not None and XRm.VUV(qxh):
+                OoM.append(qxh)
+        return OoM
     @staticmethod
-    def ubI(Wex, recv_seq, recv_seq_id, listener_notifier, logger):
-        if Wex.jrJ() != recv_seq_id:
-            Wex.Wmn(recv_seq)
-            Wex.jBO(recv_seq_id)
-            return jQt.hlF
-        if recv_seq <= Wex.get_seq():
-            return jQt.Iww
-        if recv_seq == Wex.get_seq() + 1:
-            if Wex.ucU() == fdd.jgb:
-                Wex.emd()
-                listener_notifier.Ntf(MigratoryDataClient.NOTIFY_DATA_SYNC, Wex.get_subject())
-                logger.debug(str(fqD.SgG) + str(
-                    MigratoryDataClient.NOTIFY_DATA_SYNC) + str(Wex))
-            Wex.Wmn(Wex.get_seq() + 1)
-            return jQt.hlF
-        if Wex.IbH() > 0:
+    def Xda(sCn, recv_seq, recv_seq_id, listener_notifier, logger):
+        if sCn.uzS() != recv_seq_id:
+            sCn.ZFD(recv_seq)
+            sCn.bUC(recv_seq_id)
+            return QZW.EtN
+        if recv_seq <= sCn.get_seq():
+            return QZW.xIj
+        if recv_seq == sCn.get_seq() + 1:
+            if sCn.clF() == bqk.APR:
+                sCn.OYJ()
+                listener_notifier.oYE(MigratoryDataClient.NOTIFY_DATA_SYNC, sCn.get_subject())
+                logger.debug(str(wPc.qlo) + str(
+                    MigratoryDataClient.NOTIFY_DATA_SYNC) + str(sCn))
+            sCn.ZFD(sCn.get_seq() + 1)
+            return QZW.EtN
+        if sCn.lEx() > 0:
             logger.info("Missing Messages: expected message with sequence number: " + str(
-                Wex.get_seq() + 1) + ", received instead message with sequence number:  " + str(recv_seq) + " !")
-            return jQt.ZmJ
-        logger.info("Reset sequence: '" + str(Wex.get_seq() + 1) + "'. The new sequence is: '" + str(recv_seq) + "' !")
-        Wex.Wmn(recv_seq)
-        listener_notifier.Ntf(MigratoryDataClient.NOTIFY_DATA_RESYNC, Wex.get_subject())
+                sCn.get_seq() + 1) + ", received instead message with sequence number:  " + str(recv_seq) + " !")
+            return QZW.KVJ
+        logger.info("Reset sequence: '" + str(sCn.get_seq() + 1) + "'. The new sequence is: '" + str(recv_seq) + "' !")
+        sCn.ZFD(recv_seq)
+        listener_notifier.oYE(MigratoryDataClient.NOTIFY_DATA_RESYNC, sCn.get_subject())
         logger.debug(
-            fqD.SgG + MigratoryDataClient.NOTIFY_DATA_RESYNC + str(Wex))
-        return jQt.hlF
+            wPc.qlo + MigratoryDataClient.NOTIFY_DATA_RESYNC + str(sCn))
+        return QZW.EtN
     @staticmethod
-    def jxf(Wex, recv_seq, recv_seq_id, listener_notifier, logger):
-        if Wex.jrJ() != recv_seq_id:
-            Wex.Wmn(recv_seq)
-            Wex.jBO(recv_seq_id)
-            return jQt.hlF
-        if recv_seq <= Wex.get_seq():
-            return jQt.Iww
-        if Wex.ucU() == fdd.jgb:
-            Wex.emd()
-        Wex.Wmn(recv_seq)
-        return jQt.hlF
+    def aji(sCn, recv_seq, recv_seq_id, listener_notifier, logger):
+        if sCn.uzS() != recv_seq_id:
+            sCn.ZFD(recv_seq)
+            sCn.bUC(recv_seq_id)
+            return QZW.EtN
+        if recv_seq <= sCn.get_seq():
+            return QZW.xIj
+        if sCn.clF() == bqk.APR:
+            sCn.OYJ()
+        sCn.ZFD(recv_seq)
+        return QZW.EtN
 import threading
-class inR:
+class Lea:
     def __init__(self):
         self._subject_table = {}
-        self._empty_subject = TOP("", 0)
+        self._empty_subject = Oqm("", 0)
         self._lock = threading.Lock()
-    def jbq(self, Pnj, history):
+    def IWC(self, EMh, history):
         with self._lock:
-            for guq in Pnj:
-                YRz = self._subject_table.get(guq)
-                if YRz is None:
-                    self._subject_table[guq] = TOP(guq, history)
-    def NOL(self, Pnj):
+            for qxh in EMh:
+                erT = self._subject_table.get(qxh)
+                if erT is None:
+                    self._subject_table[qxh] = Oqm(qxh, history)
+    def dHb(self, EMh):
         with self._lock:
-            amm = []
-            for guq in Pnj:
-                YRz = self._subject_table.get(guq)
-                if YRz is not None:
+            FZV = []
+            for qxh in EMh:
+                erT = self._subject_table.get(qxh)
+                if erT is not None:
                     try:
-                        del self._subject_table[guq]
-                        amm.append(YRz)
+                        del self._subject_table[qxh]
+                        FZV.append(erT)
                     except KeyError:
                         pass
-            return amm
-    def SRq(self):
+            return FZV
+    def Vsf(self):
         with self._lock:
             return self._subject_table.keys()
-    def get_subject(self, guq):
+    def get_subject(self, qxh):
         with self._lock:
-            return self._subject_table.get(guq)
-    def EVF(self, guq):
+            return self._subject_table.get(qxh)
+    def JsP(self, qxh):
         with self._lock:
-            qZw = self._subject_table.get(guq)
-            if qZw is None:
+            Gwc = self._subject_table.get(qxh)
+            if Gwc is None:
                 return False
             else:
                 return True
-    def viu(self):
+    def QLN(self):
         with self._lock:
             return self._empty_subject
-    def tpi(self):
+    def qmK(self):
         with self._lock:
-            for WLq in self._subject_table:
-                self._subject_table[WLq].wan()
+            for NQe in self._subject_table:
+                self._subject_table[NQe].max()
 import threading
 import queue
 import time
-class mzr(oMq, threading.Thread):
-    def __init__(self, knm, logger):
+class Pkk(YnO, threading.Thread):
+    def __init__(self, mcD, logger):
         threading.Thread.__init__(self)
         self._logger = logger
-        self._event_handler = knm
+        self._event_handler = mcD
         self._control_queue = queue.Queue()
-        self._running = UsT(True)
+        self._running = Fwq(True)
     def run(self):
-        while self._running.UHJ():
-            self.Abs()
-        self._event_handler.Fpg(gby.Plt())
+        while self._running.lBf():
+            self.sIx()
+        self._event_handler.LSS(QPy.DPM())
         self._logger.debug("Exit single_thread_event_loop thread")
-    def YFq(self, aer):
-        if self._running.UHJ():
-            self._control_queue.put(aer)
-    def Abs(self):
+    def LKe(self, NFc):
+        if self._running.lBf():
+            self._control_queue.put(NFc)
+    def sIx(self):
         try:
-            BQU = self._control_queue.get(True, 0.1)
-            if BQU is not None:
-                self._event_handler.Fpg(BQU)
+            NtS = self._control_queue.get(True, 0.1)
+            if NtS is not None:
+                self._event_handler.LSS(NtS)
         except queue.Empty:
             pass
-    def yIb(self):
-        self._running.NuT(False)
-class DkP:
+    def fqB(self):
+        self._running.URV(False)
+class DeA:
     @staticmethod
-    def xas(MXh, GAH):
-        eCX = rWc(-1, -1)
-        if GAH == len(MXh.mcf):
-            return eCX
-        VON = GAH
-        DLB = 2
-        hFx = 0
-        kwp = 0
-        SeO = len(MXh.mcf) - VON
-        if SeO < DLB:
-            return eCX
-        b = MXh.mcf[VON]
-        bjx = (b >> 7) & 0x01
-        uhj = b & 0x40
-        cGj = b & 0x20
-        wiI = b & 0x10
-        if bjx != 1 or uhj != 0 or cGj != 0 or wiI != 0:
-            return eCX
-        VON += 1
-        b = MXh.mcf[VON]
-        zMn = b & 0x7F
-        if zMn < 126:
-            kwp = 0
-            hFx = zMn
-        elif zMn == 126:
-            kwp = 2
-            if SeO < DLB + kwp:
-                return eCX
-            qLt = bytearray()
-            for JlT in range(VON + 1, VON + 1 + kwp):
-                qLt.extend([MXh.mcf[JlT]])
-            hFx = DkP.eoF(qLt)
-            VON += kwp
-        elif zMn == 127:
-            kwp = 8
-            if SeO < DLB + kwp:
-                return eCX
-            qLt = bytearray()
-            for JlT in range(VON + 1, VON + 1 + kwp):
-                qLt.extend([MXh.mcf[JlT]])
-            hFx = DkP.eoF(qLt)
-            VON += kwp
-        if SeO < (DLB + kwp + hFx):
-            return eCX
-        VON += 1
-        return rWc(VON, VON + hFx)
+    def han(jiT, yTC):
+        IPA = mJo(-1, -1)
+        if yTC == len(jiT.YoI):
+            return IPA
+        Kif = yTC
+        NEC = 2
+        noy = 0
+        MgP = 0
+        HMe = len(jiT.YoI) - Kif
+        if HMe < NEC:
+            return IPA
+        b = jiT.YoI[Kif]
+        Bpl = (b >> 7) & 0x01
+        OVS = b & 0x40
+        FCj = b & 0x20
+        xcU = b & 0x10
+        if Bpl != 1 or OVS != 0 or FCj != 0 or xcU != 0:
+            return IPA
+        Kif += 1
+        b = jiT.YoI[Kif]
+        RqL = b & 0x7F
+        if RqL < 126:
+            MgP = 0
+            noy = RqL
+        elif RqL == 126:
+            MgP = 2
+            if HMe < NEC + MgP:
+                return IPA
+            CVz = bytearray()
+            for kEj in range(Kif + 1, Kif + 1 + MgP):
+                CVz.extend([jiT.YoI[kEj]])
+            noy = DeA.ysW(CVz)
+            Kif += MgP
+        elif RqL == 127:
+            MgP = 8
+            if HMe < NEC + MgP:
+                return IPA
+            CVz = bytearray()
+            for kEj in range(Kif + 1, Kif + 1 + MgP):
+                CVz.extend([jiT.YoI[kEj]])
+            noy = DeA.ysW(CVz)
+            Kif += MgP
+        if HMe < (NEC + MgP + noy):
+            return IPA
+        Kif += 1
+        return mJo(Kif, Kif + noy)
     @staticmethod
-    def eoF(ALH):
-        if len(ALH) == 2:
-            return ((ALH[0] & 0xFF) << 8) | (ALH[1] & 0xFF)
+    def ysW(glt):
+        if len(glt) == 2:
+            return ((glt[0] & 0xFF) << 8) | (glt[1] & 0xFF)
         else:
-            return ((ALH[4] & 0x7F) << 24) | ((ALH[5] & 0xFF) << 16) | ((ALH[6] & 0xFF) << 8) | (ALH[7] & 0xFF)
+            return ((glt[4] & 0x7F) << 24) | ((glt[5] & 0xFF) << 16) | ((glt[6] & 0xFF) << 8) | (glt[7] & 0xFF)
 import re
-class Qfc:
+class kWi:
     @staticmethod
-    def GbG(MXh, logger):
-        MMW = MXh.VON
-        if MXh.mcf[MMW] == 72:
-            MMW = Qfc.ugR(MXh)
-        if MMW == -1:
+    def Cvx(jiT, logger):
+        KTf = jiT.Kif
+        if jiT.YoI[KTf] == 72:
+            KTf = kWi.fmr(jiT)
+        if KTf == -1:
             return []
-        MXh.GAH(MMW)
-        BZl = []
+        jiT.yTC(KTf)
+        EaA = []
         while True:
-            if MMW >= len(MXh.mcf):
-                return BZl
-            if MXh.mcf[MMW] == ETB.qvi:
-                MMW += 1
+            if KTf >= len(jiT.YoI):
+                return EaA
+            if jiT.YoI[KTf] == vxU.Hnb:
+                KTf += 1
             else:
                 try:
-                    Zzp = DkP.xas(MXh, MMW)
+                    KAP = DeA.han(jiT, KTf)
                 except IndexError:
-                    Zzp = rWc(-1, -1)
-                brl = Zzp.MSp()
-                eVf = Zzp.xIf()
-                if brl == -1:
-                    return BZl
+                    KAP = mJo(-1, -1)
+                Gwn = KAP.pIu()
+                kzi = KAP.ufj()
+                if Gwn == -1:
+                    return EaA
                 while True:
-                    JlT = Qfc.ZAJ(MXh, brl, eVf, ETB.EEH)
-                    if JlT == -1:
+                    kEj = kWi.BFc(jiT, Gwn, kzi, vxU.pHs)
+                    if kEj == -1:
                         break
-                    gNU = Qfc.VUj(MXh, brl + 1, JlT, logger)
-                    if gNU is not None:
-                        message = joo(ETB.kLV[MXh.mcf[brl]], gNU)
-                        BZl.append(message)
-                    brl = JlT + 1
-                    MXh.GAH(brl)
-                MMW = MXh.VON
+                    VFw = kWi.xZS(jiT, Gwn + 1, kEj, logger)
+                    if VFw is not None:
+                        message = GAP(vxU.FrW[jiT.YoI[Gwn]], VFw)
+                        EaA.append(message)
+                    Gwn = kEj + 1
+                    jiT.yTC(Gwn)
+                KTf = jiT.Kif
     @staticmethod
-    def uou(MXh, logger):
-        VON = Qfc.Ois(MXh)
-        if VON == -1:
+    def RuE(jiT, logger):
+        Kif = kWi.CSa(jiT)
+        if Kif == -1:
             return []
-        MXh.GAH(VON)
-        BZl = []
+        jiT.yTC(Kif)
+        EaA = []
         while True:
-            JlT = Qfc.ZAJ(MXh, VON, len(MXh.mcf), ETB.EEH)
-            if JlT == -1:
+            kEj = kWi.BFc(jiT, Kif, len(jiT.YoI), vxU.pHs)
+            if kEj == -1:
                 break
-            if MXh.mcf[VON] == 72:
-                BZl.extend(Qfc.uou(MXh, logger))
+            if jiT.YoI[Kif] == 72:
+                EaA.extend(kWi.RuE(jiT, logger))
                 break
-            gNU = Qfc.VUj(MXh, VON + 1, JlT, logger)
-            if gNU is not None:
-                message = joo(ETB.kLV[MXh.mcf[VON]], gNU)
-                BZl.append(message)
-            VON = JlT + 1
-            MXh.GAH(VON)
-        return BZl
+            VFw = kWi.xZS(jiT, Kif + 1, kEj, logger)
+            if VFw is not None:
+                message = GAP(vxU.FrW[jiT.YoI[Kif]], VFw)
+                EaA.append(message)
+            Kif = kEj + 1
+            jiT.yTC(Kif)
+        return EaA
     @staticmethod
-    def Ois(MXh):
-        VON = MXh.VON
-        if MXh.mcf[VON] == 72:
-            Skg = "\r\n\r\n".encode("utf-8")
-            TyL = xSj.search(MXh.mcf[VON:], len(MXh.mcf), Skg,
-                                                   len(Skg))
-            if TyL != -1:
-                VON += TyL + len(Skg)
-                MXh.GAH(VON)
+    def CSa(jiT):
+        Kif = jiT.Kif
+        if jiT.YoI[Kif] == 72:
+            GHF = "\r\n\r\n".encode("utf-8")
+            FHC = Nnr.search(jiT.YoI[Kif:], len(jiT.YoI), GHF,
+                                                   len(GHF))
+            if FHC != -1:
+                Kif += FHC + len(GHF)
+                jiT.yTC(Kif)
             else:
                 return -1
-        return VON
+        return Kif
     @staticmethod
-    def ugR(MXh):
-        Skg = "\r\n\r\n".encode("utf-8")
-        VON = MXh.VON
-        JlT = xSj.search(MXh.mcf[VON:], len(MXh.mcf), Skg,
-                             len(Skg))
-        if JlT == -1:
+    def fmr(jiT):
+        GHF = "\r\n\r\n".encode("utf-8")
+        Kif = jiT.Kif
+        kEj = Nnr.search(jiT.YoI[Kif:], len(jiT.YoI), GHF,
+                             len(GHF))
+        if kEj == -1:
             return -1
-        VON = JlT + len(Skg)
-        return VON
+        Kif = kEj + len(GHF)
+        return Kif
     @staticmethod
-    def ZAJ(MXh, start, end, value):
-        for JlT in range(start, end):
-            if MXh.mcf[JlT] == value:
-                return JlT
+    def BFc(jiT, start, end, value):
+        for kEj in range(start, end):
+            if jiT.YoI[kEj] == value:
+                return kEj
         return -1
     @staticmethod
-    def VUj(MXh, start, end, logger):
-        gNU = None
+    def xZS(jiT, start, end, logger):
+        VFw = None
         while True:
             if start >= end:
                 break
-            fYg = MXh.mcf[start]
-            jgI = Qfc.ZAJ(MXh, start + 1, end, ETB.tWC)
-            if jgI == -1:
+            hbS = jiT.YoI[start]
+            zRS = kWi.BFc(jiT, start + 1, end, vxU.fTy)
+            if zRS == -1:
                 logger.trace(
                     "Received an invalid msg: Hdr end missing - msg ignored, Hdr Position: " + str(
-                        start) + ", " + str(MXh.mcf[start:end]))
+                        start) + ", " + str(jiT.YoI[start:end]))
                 return None
-            TEW = ETB.Kbv(fYg)
-            if TEW is None:
-                logger.trace("Received an unknown Hdr - Hdr ignored, Hdr Position: " + str(MXh.mcf))
-                start = jgI + 1
+            esp = vxU.pkw(hbS)
+            if esp is None:
+                logger.trace("Received an unknown Hdr - Hdr ignored, Hdr Position: " + str(jiT.YoI))
+                start = zRS + 1
             start = start + 1
-            if gNU is None:
-                gNU = {}
+            if VFw is None:
+                VFw = {}
             value = None
-            LNZ = ETB.YNl(TEW)
-            JZF = MXh.mcf[start:jgI]
-            if LNZ == For.wiZ:
-                value = ETB.wxD(JZF)
-            elif LNZ == For.BTj:
-                dqH = ETB.Teg(JZF)
-                value = dqH.decode('utf-8')
-            elif LNZ == For.Cph:
-                value = ETB.Teg(JZF)
-            elif LNZ == For.gZQ:
-                value = JZF
-            hgc = gNU.get(TEW)
-            if hgc is None:
-                gNU[TEW] = value
+            scH = vxU.pvf(esp)
+            FKQ = jiT.YoI[start:zRS]
+            if scH == JXC.yIr:
+                value = vxU.CNe(FKQ)
+            elif scH == JXC.XJM:
+                dtF = vxU.KAb(FKQ)
+                value = dtF.decode('utf-8')
+            elif scH == JXC.EoU:
+                value = vxU.KAb(FKQ)
+            elif scH == JXC.Kdr:
+                value = FKQ
+            rpz = VFw.get(esp)
+            if rpz is None:
+                VFw[esp] = value
             else:
-                values = [hgc, value]
-                gNU[TEW] = values
-            start = jgI + 1
-        return gNU
+                values = [rpz, value]
+                VFw[esp] = values
+            start = zRS + 1
+        return VFw
 import threading
 import queue
-class OsY(Lge, threading.Thread):
+class YfI(avr, threading.Thread):
     def __init__(self, listener):
         super().__init__()
         self._queue = queue.Queue()
         self._run = True
         self._migratory_data_listener = listener
-    def Ntf(self, status, info):
-        self._queue.put(uCm(AEe.VhZ, status, info, None))
-    def OUt(self, message):
-        self._queue.put(uCm(AEe.OUB, None, None, message))
+    def oYE(self, status, info):
+        self._queue.put(DVj(Dle.qlT, status, info, None))
+    def neo(self, message):
+        self._queue.put(DVj(Dle.MjH, None, None, message))
     def run(self):
         while self._run:
             try:
-                hZQ = self._queue.get(True, 0.1)
+                vYd = self._queue.get(True, 0.1)
                 if self._migratory_data_listener is not None:
-                    if hZQ.ioi == AEe.VhZ:
-                        self._migratory_data_listener.on_status(hZQ.status, hZQ.info)
-                    elif hZQ.ioi == AEe.OUB:
-                        self._migratory_data_listener.on_message(hZQ.migratory_data_message)
+                    if vYd.RIo == Dle.qlT:
+                        self._migratory_data_listener.on_status(vYd.status, vYd.info)
+                    elif vYd.RIo == Dle.MjH:
+                        self._migratory_data_listener.on_message(vYd.migratory_data_message)
             except queue.Empty:
                 pass
-    def oBS(self):
+    def SUb(self):
         self._run = False
 import socket
 import uuid
 import threading
-class lgT:
-    ojR = 0
-    CcI = 1
-class IVo:
-    TQh = 0
-    OrY = 1
-    Quq = 2
-class eZN:
-    WBN = 0
-    onf = 1
-    fca = 2
+class Xkt:
+    LOZ = 0
+    zrx = 1
+class zHn:
+    Jqp = 0
+    nCc = 1
+    vsv = 2
+class Ard:
+    ikq = 0
+    OkM = 1
+    HKO = 2
 class Connection:
-    def __init__(self, configuration, listener_notifier, Yxr, ROp, client_state, logger):
+    def __init__(self, configuration, listener_notifier, FfZ, AEu, client_state, logger):
         self._lock = threading.Lock()
         self._reconnect_retries = 0
         self._session = -1
@@ -1891,426 +1891,426 @@ class Connection:
         self._max_message_size = None
         self._publish_closures = []
         self._current_connection_id = None
-        self._app_state = IVo.Quq
-        self._node_type = eZN.WBN
-        self._subject_manager = inR()
+        self._app_state = zHn.vsv
+        self._node_type = Ard.ikq
+        self._subject_manager = Lea()
         self._logger = logger
         self._configuration = configuration
         self._listener_notifier = listener_notifier
-        self._cluster = Yxr
-        self._scheduler = ROp
+        self._cluster = FfZ
+        self._scheduler = AEu
         self._client_state = client_state
-        self._push_encoder = quY()
+        self._push_encoder = xuW()
         self._transport_type = self._configuration.trans_type
-        if self._transport_type == yhd.HTTP:
-            self._transport_encoder = FCV()
-            self._push_encoder.NRi()
+        if self._transport_type == hsd.HTTP:
+            self._transport_encoder = sUN()
+            self._push_encoder.Lhq()
         else:
-            self._transport_encoder = MeW()
-        self._message_listener = liM()
-        self._message_listener.ceV(self)
+            self._transport_encoder = cAG()
+        self._message_listener = XcA()
+        self._message_listener.JoW(self)
         self._cluster_token = None
-    def axH(self):
+    def YbJ(self):
         return self._message_listener
-    def Tpi(self, MXh):
-        BZl = None
-        if self._transport_type == yhd.Dom:
-            BZl = Qfc.GbG(MXh, self._logger)
+    def RyP(self, jiT):
+        EaA = None
+        if self._transport_type == hsd.IWR:
+            EaA = kWi.Cvx(jiT, self._logger)
         else:
-            BZl = Qfc.uou(MXh, self._logger)
-        if len(BZl) > 0:
-            self.uRm(BZl)
+            EaA = kWi.RuE(jiT, self._logger)
+        if len(EaA) > 0:
+            self.YMg(EaA)
         else:
-            self._loop.YFq(gby.nck())
-            self._logger.debug(str(fqD.tPH))
-    def uRm(self, BZl):
-        for JlT in range(0, len(BZl)):
-            message = BZl[JlT]
-            if message.operation == sJO.CLIENT_PUBLISH_RESPONSE or message.operation == sJO.dQH or message.operation == sJO.cRR or message.operation == sJO.IzP \
-                    or message.operation == sJO.KLK or message.operation == sJO.vKi or message.operation == sJO.ojR:
-                self._loop.YFq(gby.iPq(message))
-                self._logger.debug(fqD.yRC + str(message))
-            elif message.operation == sJO.TYb:
-                self._loop.YFq(gby.nck())
-                self._logger.debug(str(fqD.tPH))
-            elif message.operation == sJO.fqS:
+            self._loop.LKe(QPy.wsp())
+            self._logger.debug(str(wPc.zeZ))
+    def YMg(self, EaA):
+        for kEj in range(0, len(EaA)):
+            message = EaA[kEj]
+            if message.operation == oWA.CLIENT_PUBLISH_RESPONSE or message.operation == oWA.rUO or message.operation == oWA.wiS or message.operation == oWA.dCD \
+                    or message.operation == oWA.zmZ or message.operation == oWA.fEB or message.operation == oWA.LOZ:
+                self._loop.LKe(QPy.wCN(message))
+                self._logger.debug(wPc.AvA + str(message))
+            elif message.operation == oWA.HWc:
+                self._loop.LKe(QPy.wsp())
+                self._logger.debug(str(wPc.zeZ))
+            elif message.operation == oWA.Wqi:
                 break
             else:
                 self._logger.warn("No existing operation for msg: " + str(message))
     def connect(self):
-        Itu = uuid.uuid4()
-        self.sae(Itu)
+        sWa = uuid.uuid4()
+        self.pIY(sWa)
         if self._socket is not None:
             self.disconnect()
         try:
-            PNn = self._cluster.Lie()
-            self._logger.info("Connecting to the clust Member: " + str(self._cluster.sNv()))
-            self._socket = naa.zxa(PNn.Gsa(), PNn.Ocs(),
+            hvC = self._cluster.Jsw()
+            self._logger.info("Connecting to the clust Member: " + str(self._cluster.XKi()))
+            self._socket = wYp.ARz(hvC.Cdx(), hvC.ijn(),
                                                     self._configuration.encryption,
                                                     self._configuration.socket_timeout_seconds)
-            self._writer = XBk(self._socket)
+            self._writer = qlT(self._socket)
             self._writer.start()
-            self._reader = ZrB(self._socket, self, Itu)
+            self._reader = KRy(self._socket, self, sWa)
             self._reader.start()
-            MXh = self._transport_encoder.AZx(self._cluster.sNv().Gsa(),
+            jiT = self._transport_encoder.HLn(self._cluster.XKi().Cdx(),
                                                                   self._configuration.encryption)
-            if len(MXh.mcf) > 0:
-                self._writer.RUH(MXh.mcf)
+            if len(jiT.YoI) > 0:
+                self._writer.qbU(jiT.YoI)
         except:
-            self._logger.info("Failed to Connect: " + str(self._cluster.sNv()))
-            self._scheduler.ArA(Itu, self, gHQ.sMx)
+            self._logger.info("Failed to Connect: " + str(self._cluster.XKi()))
+            self._scheduler.nCJ(sWa, self, XRm.BWx)
             return
-        self._scheduler.gvX(Itu, self, lgT.ojR)
-        self._scheduler.llM(self)
-        self.jsZ()
-    def jsZ(self):
-        MXh = self._transport_encoder.EWQ(self._cluster.sNv().Gsa())
-        Jaf = self._configuration
-        self._push_encoder.dWO(MXh.mcf, Jaf.entitlement_token, Jaf.session_type, Jaf.user_agent, Jaf.lfM)
-        self._transport_encoder.WTN(MXh)
-        self._write(MXh.INS())
-    def xYl(self):
+        self._scheduler.BVr(sWa, self, Xkt.LOZ)
+        self._scheduler.MRX(self)
+        self.LXl()
+    def LXl(self):
+        jiT = self._transport_encoder.GqZ(self._cluster.XKi().Cdx())
+        sZK = self._configuration
+        self._push_encoder.XoE(jiT.YoI, sZK.entitlement_token, sZK.session_type, sZK.user_agent, sZK.bwH)
+        self._transport_encoder.Skw(jiT)
+        self._write(jiT.jWm())
+    def zkL(self):
         self.disconnect()
-        if self._app_state == IVo.TQh:
+        if self._app_state == zHn.Jqp:
             return
-        self._cluster.AOg(self._cluster.sNv())
+        self._cluster.ULU(self._cluster.XKi())
         self._reconnected = True
         self.connect()
     def disconnect(self):
         if self._socket is not None:
             self._socket.close()
         if self._writer is not None:
-            self._writer.oBS()
+            self._writer.SUb()
         if self._reader is not None:
-            self._reader.oBS()
+            self._reader.SUb()
         self._socket = None
         self._writer = None
         self._reader = None
         self._scheduler.cancel()
-        self.hXA()
-    def uyx(self):
-        self._app_state = IVo.TQh
+        self.isf()
+    def SFQ(self):
+        self._app_state = zHn.Jqp
         self.disconnect()
-    def hXA(self):
-        self._client_state.GQZ(wsQ.klX)
+    def isf(self):
+        self._client_state.ZQg(NYb.xHp)
         self._session = -1
         self._session_received = False
-    def FjH(self):
-        if self._app_state != IVo.Quq:
+    def MpD(self):
+        if self._app_state != zHn.vsv:
             return
         self._logger.info("Call pause")
-        self._app_state = IVo.OrY
+        self._app_state = zHn.nCc
         self.disconnect()
     def resume(self):
-        if self._app_state != IVo.OrY:
+        if self._app_state != zHn.nCc:
             return
         self._logger.info("Call resume")
-        self._app_state = IVo.Quq
-        self.REH()
-        self.xYl()
-    def subscribe(self, Pnj, history):
-        if Pnj is None or len(Pnj) == 0:
+        self._app_state = zHn.vsv
+        self.cLP()
+        self.zkL()
+    def subscribe(self, EMh, history):
+        if EMh is None or len(EMh) == 0:
             return
-        Pnj = gHQ.XvP(Pnj)
-        IrJ = list(set(Pnj) - set(self._subject_manager.SRq()))
-        if len(IrJ) == 0:
+        EMh = XRm.Xft(EMh)
+        oeF = list(set(EMh) - set(self._subject_manager.Vsf()))
+        if len(oeF) == 0:
             return
-        self._subject_manager.jbq(IrJ, history)
-        if self._client_state.pXd() == wsQ.TUX:
-            self.jph(IrJ)
-    def jph(self, subjects_string):
-        MXh = self._transport_encoder.EWQ(self._cluster.sNv().Gsa())
-        for guq in subjects_string:
-            self.NlV(MXh, self._subject_manager.get_subject(guq))
-        self._transport_encoder.WTN(MXh)
-        self._write(MXh.INS())
+        self._subject_manager.IWC(oeF, history)
+        if self._client_state.hid() == NYb.cDJ:
+            self.pur(oeF)
+    def pur(self, subjects_string):
+        jiT = self._transport_encoder.GqZ(self._cluster.XKi().Cdx())
+        for qxh in subjects_string:
+            self.QBT(jiT, self._subject_manager.get_subject(qxh))
+        self._transport_encoder.Skw(jiT)
+        self._write(jiT.jWm())
     def _write(self, message):
         if self._writer is not None:
-            self._writer.RUH(message)
+            self._writer.qbU(message)
             try:
-                self._logger.debug(fqD.lLA + message.decode('utf-8'))
+                self._logger.debug(wPc.Uiv + message.decode('utf-8'))
             except UnicodeDecodeError:
-                self._logger.debug(fqD.lLA + str(message))
-    def NlV(self, MXh, guq):
-        self._push_encoder.qZi(MXh.mcf, guq, self._session)
+                self._logger.debug(wPc.Uiv + str(message))
+    def QBT(self, jiT, qxh):
+        self._push_encoder.XOx(jiT.YoI, qxh, self._session)
     def unsubscribe(self, subjects_string):
         if subjects_string is None or len(subjects_string) == 0:
             return
-        JDA = list(set(subjects_string) & set(self._subject_manager.SRq()))
-        if len(JDA) == 0:
+        OeD = list(set(subjects_string) & set(self._subject_manager.Vsf()))
+        if len(OeD) == 0:
             return
-        amm = self._subject_manager.NOL(JDA)
-        if self._client_state.pXd() == wsQ.TUX:
-            self.zww(amm)
-    def zww(self, Pnj):
-        MXh = self._transport_encoder.EWQ(self._cluster.sNv().Gsa())
-        for guq in Pnj:
-            self._push_encoder.Wti(MXh.mcf, self._session, guq)
-        self._transport_encoder.WTN(MXh)
-        self._write(MXh.INS())
+        FZV = self._subject_manager.dHb(OeD)
+        if self._client_state.hid() == NYb.cDJ:
+            self.IRX(FZV)
+    def IRX(self, EMh):
+        jiT = self._transport_encoder.GqZ(self._cluster.XKi().Cdx())
+        for qxh in EMh:
+            self._push_encoder.fkD(jiT.YoI, self._session, qxh)
+        self._transport_encoder.Skw(jiT)
+        self._write(jiT.jWm())
     def publish(self, message):
-        if self._client_state.pXd() != wsQ.TUX:
-            self.lFO(MigratoryDataClient.NOTIFY_PUBLISH_FAILED, message)
-        self.Ute(message)
-    def Ute(self, message):
-        jtY = message.get_reply_to_subject()
-        if jtY is not None and gHQ.qin(
-                jtY) is True and self._subject_manager.EVF(jtY) is False:
-            self.subscribe([jtY], 0)
-        MXh = self._transport_encoder.EWQ(self._cluster.sNv().Gsa())
-        self._push_encoder.kCk(MXh.mcf, message, self._session)
-        self._transport_encoder.WTN(MXh)
-        if self._max_message_size is not None and (len(MXh.mcf) - MXh.VON) > self._max_message_size:
-            self.lFO(MigratoryDataClient.NOTIFY_MESSAGE_SIZE_LIMIT_EXCEEDED, message)
+        if self._client_state.hid() != NYb.cDJ:
+            self.ipX(MigratoryDataClient.NOTIFY_PUBLISH_FAILED, message)
+        self.dDS(message)
+    def dDS(self, message):
+        Mwy = message.get_reply_to_subject()
+        if Mwy is not None and XRm.VUV(
+                Mwy) is True and self._subject_manager.JsP(Mwy) is False:
+            self.subscribe([Mwy], 0)
+        jiT = self._transport_encoder.GqZ(self._cluster.XKi().Cdx())
+        self._push_encoder.Eye(jiT.YoI, message, self._session)
+        self._transport_encoder.Skw(jiT)
+        if self._max_message_size is not None and (len(jiT.YoI) - jiT.Kif) > self._max_message_size:
+            self.ipX(MigratoryDataClient.NOTIFY_MESSAGE_SIZE_LIMIT_EXCEEDED, message)
             return
         closure = message.get_closure()
         if closure is not None and len(closure) > 0:
             self._publish_closures.append(closure)
-        self._write(MXh.INS())
-    def jno(self):
+        self._write(jiT.jWm())
+    def pIu(self):
         for closure in self._publish_closures:
-            self._listener_notifier.Ntf(
-                fqD.Vpe + " " + closure)
+            self._listener_notifier.oYE(
+                wPc.YlF + " " + closure)
         self._publish_closures = []
-    def lFO(self, notification, message):
+    def ipX(self, notification, message):
         if message is not None and message.get_closure() is not None:
-            self._listener_notifier.Ntf(notification, message.get_closure())
-    def fDB(self):
-        MXh = self._transport_encoder.EWQ(self._cluster.sNv().Gsa())
-        self._push_encoder.Fuz(MXh.mcf, self._session)
-        self._transport_encoder.WTN(MXh)
+            self._listener_notifier.oYE(notification, message.get_closure())
+    def XUo(self):
+        jiT = self._transport_encoder.GqZ(self._cluster.XKi().Cdx())
+        self._push_encoder.vAi(jiT.YoI, self._session)
+        self._transport_encoder.Skw(jiT)
         if self._writer is not None:
-            self._write(MXh.INS())
-    def ArA(self, uuid, disconnect_reason, from_):
-        if uuid == self.cHD():
-            self._client_state.GQZ(wsQ.klX)
-            self._loop.YFq(gby.TNU(uuid, disconnect_reason))
+            self._write(jiT.jWm())
+    def nCJ(self, uuid, disconnect_reason, from_):
+        if uuid == self.vxD():
+            self._client_state.ZQg(NYb.xHp)
+            self._loop.LKe(QPy.UTJ(uuid, disconnect_reason))
             self._logger.debug(
-                fqD.SCB + str(self._current_connection_id) + str(from_))
-    def bws(self, disconnect_info):
-        self._logger.error("[" + str(disconnect_info) + "] [" + str(self._cluster.sNv()) + "]")
-        self._logger.info("Lost connection with the clust Member: " + str(self._cluster.sNv()))
+                wPc.sOi + str(self._current_connection_id) + str(from_))
+    def uyq(self, disconnect_info):
+        self._logger.error("[" + str(disconnect_info) + "] [" + str(self._cluster.XKi()) + "]")
+        self._logger.info("Lost connection with the clust Member: " + str(self._cluster.XKi()))
         if self._session_received is False:
             self._servers_down_count += 1
             if self._is_server_down is False:
                 if self._servers_down_count >= self._configuration.servers_down_before_notify:
                     self._is_server_down = True
-                    self._listener_notifier.Ntf(MigratoryDataClient.NOTIFY_SERVER_DOWN,
-                                                         self._cluster.sNv().aLt())
-                    self._logger.debug(fqD.raC + str(disconnect_info))
-    def REH(self):
+                    self._listener_notifier.oYE(MigratoryDataClient.NOTIFY_SERVER_DOWN,
+                                                         self._cluster.XKi().Inb())
+                    self._logger.debug(wPc.QoC + str(disconnect_info))
+    def cLP(self):
         self._is_server_down = False
         self._servers_down_count = 0
-    def kzM(self):
-        self._logger.info("Connected to the clust Member: " + str(self._cluster.sNv()))
-        self.REH()
-        self._listener_notifier.Ntf(MigratoryDataClient.NOTIFY_SERVER_UP,
-                                             self._cluster.sNv().aLt())
-        self._logger.debug(fqD.iMT + MigratoryDataClient.NOTIFY_SERVER_UP + str(
-            self.cHD()))
-    def JUz(self):
+    def NOV(self):
+        self._logger.info("Connected to the clust Member: " + str(self._cluster.XKi()))
+        self.cLP()
+        self._listener_notifier.oYE(MigratoryDataClient.NOTIFY_SERVER_UP,
+                                             self._cluster.XKi().Inb())
+        self._logger.debug(wPc.hSv + MigratoryDataClient.NOTIFY_SERVER_UP + str(
+            self.vxD()))
+    def Zxd(self):
         return self._reconnect_retries
-    def sWW(self):
+    def wLb(self):
         self._reconnect_retries += 1
         return self._reconnect_retries
-    def sae(self, Itu):
+    def pIY(self, sWa):
         with self._lock:
-            self._current_connection_id = Itu
-    def cHD(self):
+            self._current_connection_id = sWa
+    def vxD(self):
         with self._lock:
             return self._current_connection_id
-    def HQc(self, loop):
+    def iit(self, loop):
         self._loop = loop
-    def VcU(self):
+    def maU(self):
         return self._loop
-    def Umj(self):
+    def vMz(self):
         return self._app_state
-class liM:
+class XcA:
     def __init__(self):
         self._connection = None
-    def ceV(self, connection):
+    def JoW(self, connection):
         self._connection = connection
     def on_message(self, message):
-        self._connection._scheduler.gvX(self._connection.cHD(),
-                                                                   self._connection, lgT.CcI)
-        gNU = message.gNU
-        if message.operation == sJO.KLK:
-            self.VcJ(gNU)
-        elif message.operation == sJO.dQH:
-            self.Vdd(gNU, message)
-        elif message.operation == sJO.ojR:
-            self.Qad(gNU)
-        elif message.operation == sJO.CLIENT_PUBLISH_RESPONSE:
-            self.EdC(gNU)
-        elif message.operation == sJO.vKi:
-            self.sXE()
-        elif message.operation == sJO.cRR:
-            self.DFp(gNU)
-        elif message.operation == sJO.IzP:
-            self.bvC(gNU)
+        self._connection._scheduler.BVr(self._connection.vxD(),
+                                                                   self._connection, Xkt.zrx)
+        VFw = message.VFw
+        if message.operation == oWA.zmZ:
+            self.hSz(VFw)
+        elif message.operation == oWA.rUO:
+            self.PGi(VFw, message)
+        elif message.operation == oWA.LOZ:
+            self.xgx(VFw)
+        elif message.operation == oWA.CLIENT_PUBLISH_RESPONSE:
+            self.yWM(VFw)
+        elif message.operation == oWA.fEB:
+            self.moI()
+        elif message.operation == oWA.wiS:
+            self.FNC(VFw)
+        elif message.operation == oWA.dCD:
+            self.UFA(VFw)
         else:
             self._connection._logger.warn("No existing operation for msg: " + str(message))
-    def Qad(self, gNU):
-        qoi = gNU.get(aZG.AAX)
-        if qoi is not None:
-            self._connection.kzM()
-            self._connection._session = qoi
+    def xgx(self, VFw):
+        ltF = VFw.get(PsT.bCA)
+        if ltF is not None:
+            self._connection.NOV()
+            self._connection._session = ltF
             self._connection._session_received = True
             self._connection._reconnect_retries = 0
-            jsx = gNU.get(aZG.VPu)
-            if jsx is not None and jsx == 1:
-                self._connection._node_type = eZN.onf
-            if jsx is not None and jsx == 2:
-                self._connection._node_type = eZN.fca
-            yjp = gNU.get(aZG.dbx)
-            if yjp is not None:
-                self._connection._scheduler.urp(yjp)
-                self._connection._scheduler.gvX(
-                    self._connection.cHD(), self._connection, lgT.CcI)
-            self._connection._client_state.GQZ(wsQ.TUX)
-            CnI = gNU.get(aZG.Iov)
-            self.kAN(CnI)
-            Pvl = gNU.get(aZG.Oaa)
-            if Pvl is not None:
-                self._connection._max_message_size = Pvl
-            Pnj = self._connection._subject_manager.SRq()
-            if len(Pnj) > 0:
-                self._connection.jph(Pnj)
-    def VcJ(self, gNU):
+            RVm = VFw.get(PsT.GVE)
+            if RVm is not None and RVm == 1:
+                self._connection._node_type = Ard.OkM
+            if RVm is not None and RVm == 2:
+                self._connection._node_type = Ard.HKO
+            ffv = VFw.get(PsT.lEV)
+            if ffv is not None:
+                self._connection._scheduler.uFI(ffv)
+                self._connection._scheduler.BVr(
+                    self._connection.vxD(), self._connection, Xkt.zrx)
+            self._connection._client_state.ZQg(NYb.cDJ)
+            NKv = VFw.get(PsT.MWI)
+            self.HKk(NKv)
+            DNW = VFw.get(PsT.Wqe)
+            if DNW is not None:
+                self._connection._max_message_size = DNW
+            EMh = self._connection._subject_manager.Vsf()
+            if len(EMh) > 0:
+                self._connection.pur(EMh)
+    def hSz(self, VFw):
         pass
-    def sXE(self):
+    def moI(self):
         pass
-    def Vdd(self, gNU, msg):
-        guq = gNU.get(aZG.SZC)
-        Wex = self._connection._subject_manager.get_subject(guq)
-        if Wex is None:
+    def PGi(self, VFw, msg):
+        qxh = VFw.get(PsT.SSa)
+        sCn = self._connection._subject_manager.get_subject(qxh)
+        if sCn is None:
             return
-        CnI = gNU.get(aZG.Iov)
-        self.kAN(CnI)
-        ALH = gNU.get(aZG.Zwl)
-        closure = gNU.get(aZG.PNz)
+        NKv = VFw.get(PsT.MWI)
+        self.HKk(NKv)
+        glt = VFw.get(PsT.dBF)
+        closure = VFw.get(PsT.MDF)
         retained = False
-        gQh = gNU.get(aZG.TJE)
-        if gQh is not None and gQh == 1:
+        Zfn = VFw.get(PsT.Mvk)
+        if Zfn is not None and Zfn == 1:
             retained = True
-        ryL = False
-        SjK = gNU.get(aZG.gHn)
-        if SjK is not None and SjK == 1:
-            ryL = True
-        if ryL == True:
-            ALH = self._connection._push_encoder.ioR(ALH)
-        LND = MessageType.UPDATE
-        ioi = gNU.get(aZG.opV)
-        if ioi is not None:
-            if ioi == aqF.SNAPSHOT:
-                LND = MessageType.SNAPSHOT
-            elif ioi == aqF.RECOVERED:
-                LND = MessageType.RECOVERED
-            elif ioi == aqF.HISTORICAL:
-                LND = MessageType.HISTORICAL
-        HQg = QoS.GUARANTEED
-        Isr = gNU.get(aZG.zGr)
-        if Isr is not None and Isr == QoS.STANDARD:
-            HQg = QoS.STANDARD
-        if self._connection._node_type == eZN.onf and HQg == QoS.GUARANTEED:
-            message = nbw(guq, ALH, closure, retained, LND, QoS.GUARANTEED,
-                                                   gNU.get(aZG.CjW), ryL)
-            AMA = gNU.get(aZG.EME)
-            lbh = gNU.get(aZG.BLq)
-            message.Wmn(AMA)
-            message.EZA(lbh)
-            kcH = gHQ.ubI(Wex, AMA, lbh, self._connection._listener_notifier,
+        Lec = False
+        gMM = VFw.get(PsT.oxp)
+        if gMM is not None and gMM == 1:
+            Lec = True
+        if Lec == True:
+            glt = self._connection._push_encoder.tKT(glt)
+        irB = MessageType.UPDATE
+        RIo = VFw.get(PsT.uWt)
+        if RIo is not None:
+            if RIo == oxm.SNAPSHOT:
+                irB = MessageType.SNAPSHOT
+            elif RIo == oxm.RECOVERED:
+                irB = MessageType.RECOVERED
+            elif RIo == oxm.HISTORICAL:
+                irB = MessageType.HISTORICAL
+        VXt = QoS.GUARANTEED
+        OAL = VFw.get(PsT.Xxs)
+        if OAL is not None and OAL == QoS.STANDARD:
+            VXt = QoS.STANDARD
+        if self._connection._node_type == Ard.OkM and VXt == QoS.GUARANTEED:
+            message = asV(qxh, glt, closure, retained, irB, QoS.GUARANTEED,
+                                                   VFw.get(PsT.rDh), Lec)
+            CvH = VFw.get(PsT.qPC)
+            wRp = VFw.get(PsT.HkI)
+            message.ZFD(CvH)
+            message.nnO(wRp)
+            fBg = XRm.Xda(sCn, CvH, wRp, self._connection._listener_notifier,
                                              self._connection._logger)
-            if kcH == jQt.hlF:
-                self._connection._listener_notifier.OUt(message)
-                self._connection._logger.debug(fqD.SgG + str(message))
-            elif kcH == jQt.ZmJ:
-                self._connection.ArA(self._connection.cHD(),
-                                           gHQ.BBf, "seq_higher")
-        elif self._connection._node_type == eZN.fca and HQg == QoS.GUARANTEED:
-            message = nbw(guq, ALH, closure, retained, LND, QoS.GUARANTEED,
-                                                   gNU.get(aZG.CjW), ryL)
-            AMA = gNU.get(aZG.EME)
-            lbh = gNU.get(aZG.BLq)
-            message.Wmn(AMA)
-            message.EZA(lbh)
-            kcH = gHQ.jxf(Wex, AMA, lbh, self._connection._listener_notifier,
+            if fBg == QZW.EtN:
+                self._connection._listener_notifier.neo(message)
+                self._connection._logger.debug(wPc.qlo + str(message))
+            elif fBg == QZW.KVJ:
+                self._connection.nCJ(self._connection.vxD(),
+                                           XRm.bhx, "seq_higher")
+        elif self._connection._node_type == Ard.HKO and VXt == QoS.GUARANTEED:
+            message = asV(qxh, glt, closure, retained, irB, QoS.GUARANTEED,
+                                                   VFw.get(PsT.rDh), Lec)
+            CvH = VFw.get(PsT.qPC)
+            wRp = VFw.get(PsT.HkI)
+            message.ZFD(CvH)
+            message.nnO(wRp)
+            fBg = XRm.aji(sCn, CvH, wRp, self._connection._listener_notifier,
                                              self._connection._logger)
-            if kcH == jQt.hlF:
-                self._connection._listener_notifier.OUt(message)
-                self._connection._logger.debug(fqD.SgG + str(message))
+            if fBg == QZW.EtN:
+                self._connection._listener_notifier.neo(message)
+                self._connection._logger.debug(wPc.qlo + str(message))
         else:
-            message = nbw(guq, ALH, closure, retained, LND, QoS.STANDARD,
-                                                   gNU.get(aZG.CjW), ryL)
-            self._connection._listener_notifier.OUt(message)
-            self._connection._logger.debug(fqD.SgG + str(message))
-    def EdC(self, gNU):
-        if gNU is None:
+            message = asV(qxh, glt, closure, retained, irB, QoS.STANDARD,
+                                                   VFw.get(PsT.rDh), Lec)
+            self._connection._listener_notifier.neo(message)
+            self._connection._logger.debug(wPc.qlo + str(message))
+    def yWM(self, VFw):
+        if VFw is None:
             return
-        closure = gNU.get(aZG.PNz)
-        siS = gNU.get(aZG.rqV)
-        if closure is not None and siS is not None:
+        closure = VFw.get(PsT.MDF)
+        YUz = VFw.get(PsT.KAY)
+        if closure is not None and YUz is not None:
             status = MigratoryDataClient.NOTIFY_PUBLISH_FAILED
-            if siS == gHQ.kuu:
+            if YUz == XRm.lFF:
                 status = MigratoryDataClient.NOTIFY_PUBLISH_DENIED
-            elif siS == gHQ.nTx:
+            elif YUz == XRm.saS:
                 status = MigratoryDataClient.NOTIFY_PUBLISH_OK
-            self._connection._listener_notifier.Ntf(status, closure)
+            self._connection._listener_notifier.oYE(status, closure)
             self._connection._logger.debug(
-                fqD.tRt + str(status) + str(closure))
+                wPc.rla + str(status) + str(closure))
             if self._connection._publish_closures.__contains__(closure):
                 self._connection._publish_closures.remove(closure)
-    def DFp(self, gNU):
-        JiC = gNU.get(aZG.rqV)
-        guq = gNU.get(aZG.SZC)
-        if JiC is not None and guq is not None:
-            blB = True
-            UPH = MigratoryDataClient.NOTIFY_SUBSCRIBE_DENY
-            if JiC == pSU.iZf:
-                UPH = MigratoryDataClient.NOTIFY_SUBSCRIBE_ALLOW
-                blB = False
-            elif JiC == pSU.ucH:
-                UPH = MigratoryDataClient.NOTIFY_SUBSCRIBE_DENY
-            if blB is True:
-                self._connection._subject_manager.NOL([guq])
-            self._connection._listener_notifier.Ntf(UPH, guq)
-            self._connection._logger.debug(fqD.KtW + str(
-                guq + str(JiC) + str(UPH)))
-    def bvC(self, gNU):
-        guq = gNU.get(aZG.SZC)
-        status = gNU.get(aZG.opV)
-        self._connection._logger.info("Recovery Status for subj: " + str(guq) + " is:" + str(status))
-        if gHQ.SLM == status:
-            Pnj = self._connection._subject_manager.SRq()
-            for s in Pnj:
-                Wex = self._connection._subject_manager.get_subject(s)
-                Bzd = Wex.SvO()
-                if gHQ.eWz == Bzd or gHQ.ctf == Bzd or gHQ.OXT == Bzd:
-                    Wex.GgL()
+    def FNC(self, VFw):
+        uZm = VFw.get(PsT.KAY)
+        qxh = VFw.get(PsT.SSa)
+        if uZm is not None and qxh is not None:
+            eXo = True
+            UdU = MigratoryDataClient.NOTIFY_SUBSCRIBE_DENY
+            if uZm == Snd.UZd:
+                UdU = MigratoryDataClient.NOTIFY_SUBSCRIBE_ALLOW
+                eXo = False
+            elif uZm == Snd.eFU:
+                UdU = MigratoryDataClient.NOTIFY_SUBSCRIBE_DENY
+            if eXo is True:
+                self._connection._subject_manager.dHb([qxh])
+            self._connection._listener_notifier.oYE(UdU, qxh)
+            self._connection._logger.debug(wPc.Cqx + str(
+                qxh + str(uZm) + str(UdU)))
+    def UFA(self, VFw):
+        qxh = VFw.get(PsT.SSa)
+        status = VFw.get(PsT.uWt)
+        self._connection._logger.info("Recovery Status for subj: " + str(qxh) + " is:" + str(status))
+        if XRm.UDL == status:
+            EMh = self._connection._subject_manager.Vsf()
+            for s in EMh:
+                sCn = self._connection._subject_manager.get_subject(s)
+                cxN = sCn.GUr()
+                if XRm.iTW == cxN or XRm.HOr == cxN or XRm.tZk == cxN:
+                    sCn.vjU()
                 else:
-                    Wex.iwQ()
+                    sCn.QfX()
         else:
-            Wex = self._connection._subject_manager.get_subject(guq)
-            if Wex is not None:
-                Wex.zIF(status)
-    def kAN(self, _received_cluster_token):
+            sCn = self._connection._subject_manager.get_subject(qxh)
+            if sCn is not None:
+                sCn.kzZ(status)
+    def HKk(self, _received_cluster_token):
         if _received_cluster_token is not None:
             if self._connection._cluster_token is None:
                 self._connection._cluster_token = _received_cluster_token
             else:
                 if _received_cluster_token != self._connection._cluster_token:
                     self._connection._cluster_token = _received_cluster_token
-                    self._connection._subject_manager.tpi()
+                    self._connection._subject_manager.qmK()
 import uuid
-class yhd:
+class hsd:
     HTTP = 0
-    Dom = 1
-class XDE:
+    IWR = 1
+class mPU:
     def __init__(self, session_type, user_agent):
-        self.lfM = 6
+        self.bwH = 6
         self.id = str(uuid.uuid4())
         self.session_type = session_type
-        self.user_agent = user_agent + ", version:" + str(self.lfM)
+        self.user_agent = user_agent + ", version:" + str(self.bwH)
         self.DEFAULT_KEEP_ALIVE_TIMEOUT = 30
         self.PING_INTERVAL = 900
         self.OPERATION_TIMEOUT_INTERVAL = 10
@@ -2324,57 +2324,57 @@ class XDE:
         self.encryption = False
         self.socket_timeout_seconds = 2
         self._subjects = {}
-        self.trans_type = yhd.Dom
-    def jbq(self, Pnj, history):
-        for guq in Pnj:
-            self._subjects[guq] = history
-    def rMp(self, Pnj):
-        for guq in Pnj:
+        self.trans_type = hsd.IWR
+    def IWC(self, EMh, history):
+        for qxh in EMh:
+            self._subjects[qxh] = history
+    def cfM(self, EMh):
+        for qxh in EMh:
             try:
-                del self._subjects[guq]
+                del self._subjects[qxh]
             except KeyError:
                 pass
     def get_subjects(self):
         return self._subjects
-class Mnt(xSS):
-    def __init__(self, connection, ROp):
+class IWe(sBj):
+    def __init__(self, connection, AEu):
         self._connection = connection
-        self._scheduler = ROp
-    def Fpg(self, aer):
-        if aer.operation == uTI.ojR:
+        self._scheduler = AEu
+    def LSS(self, NFc):
+        if NFc.operation == nnZ.LOZ:
             self._connection.connect()
-        elif aer.operation == uTI.KLK:
-            self._connection.subscribe(aer.Pnj, aer.history)
-        elif aer.operation == uTI.vKi:
-            self._connection.unsubscribe(aer.Pnj)
-        elif aer.operation == uTI.dQH:
-            self._connection.publish(aer.md_message)
-        elif aer.operation == uTI.esg:
-            self._connection.axH().on_message(aer.message)
-        elif aer.operation == uTI.klX:
-            if aer.connection_uuid == self._connection.cHD():
+        elif NFc.operation == nnZ.zmZ:
+            self._connection.subscribe(NFc.EMh, NFc.history)
+        elif NFc.operation == nnZ.fEB:
+            self._connection.unsubscribe(NFc.EMh)
+        elif NFc.operation == nnZ.rUO:
+            self._connection.publish(NFc.md_message)
+        elif NFc.operation == nnZ.CYA:
+            self._connection.YbJ().on_message(NFc.message)
+        elif NFc.operation == nnZ.xHp:
+            if NFc.connection_uuid == self._connection.vxD():
                 self._connection.disconnect()
-                self._connection.jno()
-                self._scheduler.ArA(aer.connection_uuid, self._connection,
-                                          aer.disconnect_reason)
-        elif aer.operation == uTI.aQV:
-            self._connection.fDB()
-            self._scheduler.llM(self._connection)
-        elif aer.operation == uTI.zod:
-            self._connection.xYl()
-        elif aer.operation == uTI.Bwc:
-            self._connection.uyx()
-        elif aer.operation == uTI.OrY:
-            self._connection.FjH()
-        elif aer.operation == uTI.nvP:
+                self._connection.pIu()
+                self._scheduler.nCJ(NFc.connection_uuid, self._connection,
+                                          NFc.disconnect_reason)
+        elif NFc.operation == nnZ.ZBr:
+            self._connection.XUo()
+            self._scheduler.MRX(self._connection)
+        elif NFc.operation == nnZ.afK:
+            self._connection.zkL()
+        elif NFc.operation == nnZ.OSM:
+            self._connection.SFQ()
+        elif NFc.operation == nnZ.nCc:
+            self._connection.MpD()
+        elif NFc.operation == nnZ.juR:
             self._connection.resume()
-        elif aer.operation == uTI.hCP:
-            self._scheduler.gvX(self._connection.cHD(),
-                                                           self._connection, lgT.CcI)
+        elif NFc.operation == nnZ.iDL:
+            self._scheduler.BVr(self._connection.vxD(),
+                                                           self._connection, Xkt.zrx)
 import threading
 import random
 import time
-class IMc(iCr):
+class uOp(tNh):
     def __init__(self, configuration, client_state):
         self._keep_alive_timer_task = None
         self._reconnect_timer_task = None
@@ -2382,30 +2382,30 @@ class IMc(iCr):
         self._configuration = configuration
         self._client_state = client_state
         self._keep_alive_timeout = self._configuration.DEFAULT_KEEP_ALIVE_TIMEOUT
-    def ArA(self, Itu, connection, disconnect_info):
-        if connection.Umj() != IVo.Quq:
+    def nCJ(self, sWa, connection, disconnect_info):
+        if connection.vMz() != zHn.vsv:
             return
-        dfD = connection.cHD()
-        if dfD is None or dfD != Itu:
+        EKE = connection.vxD()
+        if EKE is None or EKE != sWa:
             return
-        connection.sae(None)
-        connection.bws(disconnect_info)
-        Wuf = connection.sWW()
-        gfv = self.TUm(Wuf, False)
+        connection.pIY(None)
+        connection.uyq(disconnect_info)
+        rIy = connection.wLb()
+        aUS = self.bFs(rIy, False)
         if self._reconnect_timer_task is not None:
             self._reconnect_timer_task.cancel()
-        self._reconnect_timer_task = threading.Timer(gfv, self.Fub, [connection, disconnect_info])
+        self._reconnect_timer_task = threading.Timer(aUS, self.rzi, [connection, disconnect_info])
         self._reconnect_timer_task.start()
-    def Fub(self, connection, disconnect_info):
-        connection.VcU().YFq(gby.Erm(disconnect_info))
-    def llM(self, connection):
+    def rzi(self, connection, disconnect_info):
+        connection.maU().LKe(QPy.lFD(disconnect_info))
+    def MRX(self, connection):
         if self._ping_operation_timer_task is not None:
             self._ping_operation_timer_task.cancel()
         self._ping_operation_timer_task = threading.Timer(self._configuration.PING_INTERVAL,
-                                                          self.ayB, [connection])
+                                                          self.PKs, [connection])
         self._ping_operation_timer_task.start()
-    def ayB(self, connection):
-        connection.VcU().YFq(gby.JsS())
+    def PKs(self, connection):
+        connection.maU().LKe(QPy.Wdz())
     def cancel(self):
         if self._keep_alive_timer_task is not None:
             self._keep_alive_timer_task.cancel()
@@ -2413,46 +2413,46 @@ class IMc(iCr):
             self._ping_operation_timer_task.cancel()
         if self._reconnect_timer_task is not None:
             self._reconnect_timer_task.cancel()
-    def gvX(self, Itu, connection, keep_alive):
+    def BVr(self, sWa, connection, keep_alive):
         if self._keep_alive_timer_task is not None:
             self._keep_alive_timer_task.cancel()
-        gfv = self._keep_alive_timeout
-        if keep_alive == lgT.ojR:
-            Wuf = connection.JUz()
-            gfv = self.TUm(Wuf, True)
-        if gfv > 0:
-            self._keep_alive_timer_task = threading.Timer(gfv,
-                                                          self.gUp, [Itu, connection])
+        aUS = self._keep_alive_timeout
+        if keep_alive == Xkt.LOZ:
+            rIy = connection.Zxd()
+            aUS = self.bFs(rIy, True)
+        if aUS > 0:
+            self._keep_alive_timer_task = threading.Timer(aUS,
+                                                          self.XXj, [sWa, connection])
             self._keep_alive_timer_task.start()
-    def gUp(self, uuid, connection):
-        dfD = connection.cHD()
-        if dfD is None or dfD != uuid:
+    def XXj(self, uuid, connection):
+        EKE = connection.vxD()
+        if EKE is None or EKE != uuid:
             return
-        self._client_state.GQZ(wsQ.klX)
-        connection.VcU().YFq(
-            gby.TNU(uuid, gHQ.SZc))
-    def urp(self, value):
+        self._client_state.ZQg(NYb.xHp)
+        connection.maU().LKe(
+            QPy.UTJ(uuid, XRm.acu))
+    def uFI(self, value):
         self._keep_alive_timeout = value * 1.4
-    def TUm(self, Wuf, verify_timeout):
-        gfv = self._configuration.DEFAULT_KEEP_ALIVE_TIMEOUT
-        if Wuf > 0:
-            if Wuf <= self._configuration.quick_reconnect_max_retries:
-                gfv = (Wuf * self._configuration.quick_reconnect_initial_delay) - int(
+    def bFs(self, rIy, verify_timeout):
+        aUS = self._configuration.DEFAULT_KEEP_ALIVE_TIMEOUT
+        if rIy > 0:
+            if rIy <= self._configuration.quick_reconnect_max_retries:
+                aUS = (rIy * self._configuration.quick_reconnect_initial_delay) - int(
                     random.uniform(0, 1) * self._configuration.quick_reconnect_initial_delay)
             else:
                 if self._configuration.reconnect_policy == MigratoryDataClient.TRUNCATED_EXPONENTIAL_BACKOFF:
-                    count = Wuf - self._configuration.quick_reconnect_max_retries
-                    gfv = int(min(self._configuration.reconnect_time_interval * pow(2, count) - int(
+                    count = rIy - self._configuration.quick_reconnect_max_retries
+                    aUS = int(min(self._configuration.reconnect_time_interval * pow(2, count) - int(
                         random.uniform(0, 1) * self._configuration.reconnect_time_interval * count),
                                       self._configuration.reconnect_max_delay))
                 else:
-                    gfv = self._configuration.reconnect_time_interval
-            if verify_timeout and gfv < self._configuration.OPERATION_TIMEOUT_INTERVAL:
-                gfv = self._configuration.OPERATION_TIMEOUT_INTERVAL
-        return gfv
+                    aUS = self._configuration.reconnect_time_interval
+            if verify_timeout and aUS < self._configuration.OPERATION_TIMEOUT_INTERVAL:
+                aUS = self._configuration.OPERATION_TIMEOUT_INTERVAL
+        return aUS
 import sys
 import threading
-class njo:
+class Byj:
     def __init__(self):
         self._lock = threading.Lock()
         self._running = False
@@ -2462,12 +2462,12 @@ class njo:
         self._listener_notifier = None
         self._servers = None
         self._migratory_data_listener = None
-        self._client_state = Pwp()
-        self.lSg = AZa.ycH
-        self.Fxg = "MigratoryDataClient/v6.0 Python/" + str(sys.version)
-        self._logger = osA()
-        self._configuration = XDE(self.lSg, self.Fxg)
-    def ImB(self):
+        self._client_state = iFm()
+        self.MgJ = Bhs.ucE
+        self.gMY = "MigratoryDataClient/v6.0 Python/" + str(sys.version)
+        self._logger = AcC()
+        self._configuration = mPU(self.MgJ, self.gMY)
+    def ybN(self):
         self._lock.acquire()
         try:
             if self._running is True:
@@ -2479,25 +2479,25 @@ class njo:
                 raise RuntimeError(
                     "Error: connect() - no listener set; use set_listener() to specify a listener handler")
             self._running = True
-            Yxr = eAW(self._servers, self._configuration.encryption)
-            self._listener_notifier = OsY(self._migratory_data_listener)
+            FfZ = icR(self._servers, self._configuration.encryption)
+            self._listener_notifier = YfI(self._migratory_data_listener)
             self._listener_notifier.start()
-            ROp = IMc(self._configuration, self._client_state)
-            self._connection = Connection(self._configuration, self._listener_notifier, Yxr, ROp,
+            AEu = uOp(self._configuration, self._client_state)
+            self._connection = Connection(self._configuration, self._listener_notifier, FfZ, AEu,
                                           self._client_state, self._logger)
-            knm = Mnt(self._connection, ROp)
-            self._single_thread_event_loop = mzr(knm, self._logger)
-            self._connection.HQc(self._single_thread_event_loop)
-            self._single_thread_event_loop.YFq(gby.kUm())
-            Pnj = self._configuration.get_subjects()
-            for WLq in Pnj:
-                self._single_thread_event_loop.YFq(
-                    gby.JDj([WLq], Pnj[WLq]))
-                self._logger.debug(fqD.dsq + str([WLq]))
+            mcD = IWe(self._connection, AEu)
+            self._single_thread_event_loop = Pkk(mcD, self._logger)
+            self._connection.iit(self._single_thread_event_loop)
+            self._single_thread_event_loop.LKe(QPy.chE())
+            EMh = self._configuration.get_subjects()
+            for NQe in EMh:
+                self._single_thread_event_loop.LKe(
+                    QPy.dDL([NQe], EMh[NQe]))
+                self._logger.debug(wPc.eSc + str([NQe]))
             self._single_thread_event_loop.start()
         finally:
             self._lock.release()
-    def KSn(self, _servers):
+    def CFc(self, _servers):
         self._lock.acquire()
         try:
             if self._running is True:
@@ -2510,14 +2510,14 @@ class njo:
             self._servers = _servers
         finally:
             self._lock.release()
-    def PLT(self):
+    def hmD(self):
         self._lock.acquire()
         try:
             listener = self._migratory_data_listener
         finally:
             self._lock.release()
         return listener
-    def TjW(self, _listener):
+    def STe(self, _listener):
         self._lock.acquire()
         try:
             if self._running is False:
@@ -2528,16 +2528,16 @@ class njo:
                 raise RuntimeError("Client is already running, Disconnect first")
         finally:
             self._lock.release()
-    def PXX(self, _log_listener, _log_level):
+    def Ukq(self, _log_listener, _log_level):
         self._lock.acquire()
         try:
             if self._running is False:
-                self._logger.wsC(_log_listener, _log_level)
+                self._logger.yFI(_log_listener, _log_level)
             else:
                 raise RuntimeError("Client is already running, Disconnect first")
         finally:
             self._lock.release()
-    def uyx(self):
+    def SFQ(self):
         self._lock.acquire()
         try:
             self._logger.info("Disposing")
@@ -2545,16 +2545,16 @@ class njo:
                 return
             self._running = False
             if self._single_thread_event_loop is not None:
-                self._single_thread_event_loop.YFq(gby.Plt())
-                self._logger.debug(fqD.hZv)
-                self._single_thread_event_loop.yIb()
+                self._single_thread_event_loop.LKe(QPy.DPM())
+                self._logger.debug(wPc.GQQ)
+                self._single_thread_event_loop.fqB()
                 self._single_thread_event_loop = None
             if self._listener_notifier is not None:
-                self._listener_notifier.oBS()
+                self._listener_notifier.SUb()
                 self._listener_notifier = None
         finally:
             self._lock.release()
-    def JfO(self, token):
+    def rkH(self, token):
         self._lock.acquire()
         try:
             if self._running is False:
@@ -2564,57 +2564,57 @@ class njo:
                 raise RuntimeError("Client is already running, Disconnect first")
         finally:
             self._lock.release()
-    def zjj(self, _subjects, history):
+    def Qpk(self, _subjects, history):
         self._lock.acquire()
         try:
             if _subjects is None or len(_subjects) == 0:
                 raise ValueError("Error: subscribe() - invalid argument; expected a list of valid topics")
-            for guq in _subjects:
-                if guq is None or len(guq) == 0 or gHQ.qin(guq) is False:
-                    raise TypeError("Subscribe with invalid guq: " + str(guq))
+            for qxh in _subjects:
+                if qxh is None or len(qxh) == 0 or XRm.VUV(qxh) is False:
+                    raise TypeError("Subscribe with invalid qxh: " + str(qxh))
             if history < 0:
                 raise ValueError(
                     "Error: subscribeWithHistory() - the argument numberOfHistoricalMessages should be a positive number or zero!")
             self._logger.info("Subscribing to: " + str(_subjects))
-            self._configuration.jbq(_subjects, history)
+            self._configuration.IWC(_subjects, history)
             if self._running is True:
-                self._single_thread_event_loop.YFq(
-                    gby.JDj(_subjects, history))
-                self._logger.debug(fqD.dsq + str(_subjects))
+                self._single_thread_event_loop.LKe(
+                    QPy.dDL(_subjects, history))
+                self._logger.debug(wPc.eSc + str(_subjects))
         finally:
             self._lock.release()
-    def UPj(self, _subjects):
+    def UDM(self, _subjects):
         self._lock.acquire()
         try:
             if _subjects is None or len(_subjects) == 0:
                 raise ValueError("Error: subscribe() - invalid argument; expected a list of valid topics")
-            for guq in _subjects:
-                if guq is None or len(guq) == 0 or gHQ.qin(guq) is False:
-                    raise TypeError("Unsubscribe with invalid guq: " + str(guq))
+            for qxh in _subjects:
+                if qxh is None or len(qxh) == 0 or XRm.VUV(qxh) is False:
+                    raise TypeError("Unsubscribe with invalid qxh: " + str(qxh))
             self._logger.info("Unsubscribing from: " + str(_subjects))
-            self._configuration.rMp(_subjects)
+            self._configuration.cfM(_subjects)
             if self._running is True:
-                self._single_thread_event_loop.YFq(gby.cjl(_subjects))
-                self._logger.debug(fqD.fXo + str(_subjects))
+                self._single_thread_event_loop.LKe(QPy.VYS(_subjects))
+                self._logger.debug(wPc.Mhi + str(_subjects))
         finally:
             self._lock.release()
-    def wkJ(self, _message):
+    def XMe(self, _message):
         self._lock.acquire()
         try:
             if self._running is True:
-                guq = _message.get_subject()
-                gYS = _message.get_content()
-                if guq is None or len(guq) == 0 or gHQ.qin(guq) is False:
-                    raise TypeError("Msg with invalid subj: " + str(guq))
-                if gYS is None:
+                qxh = _message.get_subject()
+                ejx = _message.get_content()
+                if qxh is None or len(qxh) == 0 or XRm.VUV(qxh) is False:
+                    raise TypeError("Msg with invalid subj: " + str(qxh))
+                if ejx is None:
                     raise TypeError("Msg with null content")
-                self._single_thread_event_loop.YFq(gby.WNa(_message))
-                self._logger.debug(fqD.jid + str(_message))
+                self._single_thread_event_loop.LKe(QPy.tEa(_message))
+                self._logger.debug(wPc.oYn + str(_message))
             else:
                 raise RuntimeError("Error: publish() - not connected; use this method after connect()")
         finally:
             self._lock.release()
-    def hMJ(self, _encryption_bool):
+    def KoP(self, _encryption_bool):
         self._lock.acquire()
         try:
             if self._running is False:
@@ -2624,7 +2624,7 @@ class njo:
                 raise RuntimeError("Client is already running, Disconnect first")
         finally:
             self._lock.release()
-    def KDM(self, nr):
+    def IgL(self, nr):
         self._lock.acquire()
         try:
             if self._running is True:
@@ -2638,35 +2638,35 @@ class njo:
                 "Configuring the number of failed connection attempts before sending a notification: " + str(nr))
         finally:
             self._lock.release()
-    def pLE(self):
+    def PqW(self):
         self._lock.acquire()
         try:
             return list(self._configuration.get_subjects().keys())
         finally:
             self._lock.release()
-    def FjH(self):
+    def MpD(self):
         self._lock.acquire()
         try:
             if self._running is True:
                 self._logger.info("Migratorydata client calls pause")
-                self._logger.debug(fqD.wso)
-                self._single_thread_event_loop.YFq(gby.Tbv())
+                self._logger.debug(wPc.TwE)
+                self._single_thread_event_loop.LKe(QPy.Qkq())
             else:
                 raise RuntimeError("Error: pause() - not connected; use this method after connect()")
         finally:
             self._lock.release()
-    def FAB(self):
+    def LOM(self):
         self._lock.acquire()
         try:
             if self._running is True:
                 self._logger.info("Migratorydata client calls resume")
-                self._logger.debug(fqD.aTg)
-                self._single_thread_event_loop.YFq(gby.szz())
+                self._logger.debug(wPc.LmE)
+                self._single_thread_event_loop.LKe(QPy.bUY())
             else:
                 raise RuntimeError("Error: resume() - not connected; use this method after connect()")
         finally:
             self._lock.release()
-    def bvI(self, nr):
+    def qUU(self, nr):
         self._lock.acquire()
         try:
             if self._running is True:
@@ -2679,7 +2679,7 @@ class njo:
             self._logger.info("Configuring quickReconnect max Retries to: " + str(nr))
         finally:
             self._lock.release()
-    def mEA(self, interval):
+    def Gyr(self, interval):
         self._lock.acquire()
         try:
             if self._running is True:
@@ -2692,7 +2692,7 @@ class njo:
             self._logger.info("Configuring quickReconnectInitial delay to: " + str(interval))
         finally:
             self._lock.release()
-    def pVT(self, _policy):
+    def QLn(self, _policy):
         self._lock.acquire()
         try:
             if self._running is True:
@@ -2706,7 +2706,7 @@ class njo:
             self._logger.info("Configuring Reconnect Policy to: " + _policy)
         finally:
             self._lock.release()
-    def NGB(self, interval):
+    def IgW(self, interval):
         self._lock.acquire()
         try:
             if self._running is True:
@@ -2719,7 +2719,7 @@ class njo:
             self._logger.info("Configuring setReconnectTime interval  to: " + str(interval))
         finally:
             self._lock.release()
-    def MKA(self, delay):
+    def Yhu(self, delay):
         self._lock.acquire()
         try:
             if self._running is True:
@@ -2732,14 +2732,14 @@ class njo:
             self._logger.info("Configuring setReconnectMax delay  to: " + str(delay))
         finally:
             self._lock.release()
-    def QwM(self, type):
+    def eGX(self, type):
         self._lock.acquire()
         try:
             if self._running is True:
                 raise RuntimeError(
                     "Error: Set_transport() - already connected; use this method before connect")
             if type == MigratoryDataClient.TRANSPORT_HTTP:
-                self._configuration.trans_type = yhd.HTTP
+                self._configuration.trans_type = hsd.HTTP
             self._logger.info("Configuring transport type to: " + type)
         finally:
             self._lock.release()
@@ -2759,17 +2759,17 @@ class MigratoryDataClient:
     TRANSPORT_HTTP = "TRANSPORT_HTTP"
     TRANSPORT_WEBSOCKET = "TRANSPORT_WEBSOCKET"
     def __init__(self):
-        self._client_impl = njo()
+        self._client_impl = Byj()
     def connect(self):
-        self._client_impl.ImB()
+        self._client_impl.ybN()
     def disconnect(self):
-        self._client_impl.uyx()
+        self._client_impl.SFQ()
     def set_listener(self, listener):
         if issubclass(type(listener), MigratoryDataListener) is False:
             raise TypeError("Argument for set_listener must be a subclass MigratoryDataListener")
-        self._client_impl.TjW(listener)
+        self._client_impl.STe(listener)
     def get_listener(self):
-        return self._client_impl.PLT()
+        return self._client_impl.hmD()
     def set_log_listener(self, log_listener, log_level):
         if issubclass(type(log_listener), MigratoryDataLogListener) is False:
             raise TypeError("First argument for set_log_listener must be a subclass MigratoryDataLogListener")
@@ -2777,71 +2777,71 @@ class MigratoryDataClient:
             raise TypeError("Second argument for set_log_level must be a MigratoryDataLogLevel")
         if log_level < 0 or log_level > 4:
             raise TypeError("Second argument for set_log_level must be a MigratoryDataLogLevel")
-        self._client_impl.PXX(log_listener, log_level)
+        self._client_impl.Ukq(log_listener, log_level)
     def set_entitlement_token(self, entitlement_token):
         if type(entitlement_token) is not str:
             raise TypeError("Argument for set_entitlement_token must be of type string")
-        self._client_impl.JfO(entitlement_token)
+        self._client_impl.rkH(entitlement_token)
     def set_servers(self, servers):
         self._check_if_is_string_list(servers, "set_servers")
-        self._client_impl.KSn(servers)
+        self._client_impl.CFc(servers)
     def _check_if_is_string_list(self, string_list, method_name):
         if type(string_list) is not list:
             raise TypeError("First argument for " + method_name + " must be a list of strings")
-        for gFa in string_list:
-            if type(gFa) is not str:
+        for TYE in string_list:
+            if type(TYE) is not str:
                 raise TypeError("First argument for " + method_name + " must be a list of strings")
     def subscribe(self, subject_list):
         self._check_if_is_string_list(subject_list, "subscribe")
-        self._client_impl.zjj(subject_list, 0)
+        self._client_impl.Qpk(subject_list, 0)
     def subscribe_with_history(self, subject_list, number_of_historical_messages):
         self._check_if_is_string_list(subject_list, "subscribe_with_history")
         if type(number_of_historical_messages) is not int:
             raise TypeError("Second argument for subscribe_with_history must be of type int")
-        self._client_impl.zjj(subject_list, number_of_historical_messages)
+        self._client_impl.Qpk(subject_list, number_of_historical_messages)
     def unsubscribe(self, subject_list):
         self._check_if_is_string_list(subject_list, "unsubscribe")
-        self._client_impl.UPj(subject_list)
+        self._client_impl.UDM(subject_list)
     def publish(self, message):
         if type(message) is not MigratoryDataMessage:
             raise TypeError("Argument for publish must be of type MigratoryDataMessage")
-        self._client_impl.wkJ(message)
+        self._client_impl.XMe(message)
     def set_encryption(self, encryption_bool):
         if type(encryption_bool) is not bool:
             raise TypeError("Argument for set_encryption must be of type bool")
-        self._client_impl.hMJ(encryption_bool)
+        self._client_impl.KoP(encryption_bool)
     def get_subjects(self):
-        return self._client_impl.pLE()
+        return self._client_impl.PqW()
     def pause(self):
-        self._client_impl.FjH()
+        self._client_impl.MpD()
     def resume(self):
-        self._client_impl.FAB()
+        self._client_impl.LOM()
     def notify_after_failed_connection_attempts(self, retries_number):
         if type(retries_number) is not int:
             raise TypeError("Argument for notify_after_failed_connection_attempts must be of type int")
-        self._client_impl.KDM(retries_number)
+        self._client_impl.IgL(retries_number)
     def set_quick_reconnect_max_retries(self, retries_number):
         if type(retries_number) is not int:
             raise TypeError("Argument for set_quick_reconnect_max_retries must be of type int")
-        self._client_impl.bvI(retries_number)
+        self._client_impl.qUU(retries_number)
     def set_quick_reconnect_initial_delay(self, seconds):
         if type(seconds) is not int:
             raise TypeError("Argument for set_quick_reconnect_initial_delay must be of type int")
-        self._client_impl.mEA(seconds)
+        self._client_impl.Gyr(seconds)
     def set_reconnect_policy(self, policy):
         if type(policy) is not str:
             raise TypeError("Argument for set_reconnect_policy must be of type string")
-        self._client_impl.pVT(policy)
+        self._client_impl.QLn(policy)
     def set_reconnect_time_interval(self, seconds):
         if type(seconds) is not int:
             raise TypeError("Argument for set_reconnect_time_interval must be of type int")
-        self._client_impl.NGB(seconds)
+        self._client_impl.IgW(seconds)
     def set_reconnect_max_delay(self, seconds):
         if type(seconds) is not int:
             raise TypeError("Argument for set_reconnect_max_delay must be of type int")
-        self._client_impl.MKA(seconds)
+        self._client_impl.Yhu(seconds)
     def set_transport(self, transport_type):
         if transport_type != MigratoryDataClient.TRANSPORT_HTTP and transport_type != MigratoryDataClient.TRANSPORT_WEBSOCKET:
             raise TypeError(
                 "Argument for set_transport must be MigratoryDataClient.TRANSPORT_WEBSOCKET or MigratoryDataClient.TRANSPORT_HTTP")
-        self._client_impl.QwM(transport_type)
+        self._client_impl.eGX(transport_type)

@@ -30,7 +30,7 @@ def run_example():
 
     client.set_encryption(Config.encryption)
 
-    client.set_servers([Config.server])
+    client.set_servers(Config.server)
 
     client.connect()
 
