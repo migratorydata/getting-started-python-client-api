@@ -38,14 +38,14 @@ def run_example():
 
     time.sleep(1)
 
-    # publish a message every 3 seconds
+    # publish a message every second
     count = 1
     while True:
         content = "data - " + str(count)
-        closure = "id" + str(count)
-        client.publish(MigratoryDataMessage(Config.subject, content.encode('utf-8'), closure))
+        msgId = "id" + str(count)
+        client.publish(MigratoryDataMessage(Config.subject, content.encode('utf-8'), msgId))
         count += 1
-        time.sleep(2)
+        time.sleep(1)
 
     # disconnect client from server
     client.disconnect() 
