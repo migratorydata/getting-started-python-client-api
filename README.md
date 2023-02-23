@@ -1,14 +1,12 @@
 This is an example of a python client application using the MigratoryData Client API for Python.
 
-REQUIREMENTS
-------------
+### REQUIREMENTS
 
-	1. Python version 3.0.1 or more recent
+1. Python version 3.0.1 or more recent
 
-	2. MigratoryData Server version 6.0 or more recent 
+2. MigratoryData Server version 6.0 or more recent 
 
-How To Run
-----------
+### How To Run
 
 The client application connects to the MigratoryData server deployed at `localhost:8800` and publishes a message every second on the subject `/server/status`.
 
